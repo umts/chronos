@@ -49,3 +49,15 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# Added at 2018-02-09 16:57:32 -0500 by Nick:
+gem "rspec", "~> 3.7"
+
+# Added at 2018-02-09 16:57:52 -0500 by Nick:
+gem "factory_bot_rails", "~> 4.8"
+
+# Added at 2018-02-09 16:58:05 -0500 by Nick:
+gem "haml", "~> 5.0"
+
+# Added at 2018-02-09 16:58:18 -0500 by Nick:
+gem "haml-rails", "~> 1.0"
