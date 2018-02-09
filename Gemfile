@@ -61,3 +61,9 @@ gem "haml", "~> 5.0"
 
 # Added at 2018-02-09 16:58:18 -0500 by Nick:
 gem "haml-rails", "~> 1.0"
+
+# Added at 2018-02-09 17:28:59 -0500 by Nick:
+gem "bootstrap", "~> 4.0"
+
+# Added at 2018-02-09 17:29:18 -0500 by Nick:
+gem "better_errors", "~> 2.4"
