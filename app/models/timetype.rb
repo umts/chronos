@@ -1,0 +1,2 @@
+class Timetype < ApplicationRecord
+end
