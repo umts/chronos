@@ -5,11 +5,11 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :last_name
       t.string :email
       t.string :division
-      t.integer :supervisor
-      t.integer :job_id
+      t.integer :position_id
+      t.integer :supervisor_id
       t.integer :swipe_id
-      t.integer :spire_id
       t.integer :hr_id
+      t.string :spire_id
 
       t.timestamps
     end

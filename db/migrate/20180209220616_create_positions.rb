@@ -1,7 +1,6 @@
-class CreateJobs < ActiveRecord::Migration[5.1]
+class CreatePositions < ActiveRecord::Migration[5.1]
   def change
-    create_table :jobs do |t|
-      t.integer :id
+    create_table :positions do |t|
       t.text :description
       t.integer :union_id
 
