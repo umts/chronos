@@ -1,0 +1,35 @@
+.form-label {
+  font-weight: bold;
+  text-align: right;
+}
+.validation-errors {
+  color:red;
+  text-align:left;
+  display:inline;  
+}
+.form-actions button {
+  margin-right:0.5em;
+  align:left;
+}
+
+.footer-bolder {
+  font-weight: bold;
+  border-top:    2px dotted black;
+    margin-bottom: 10px;
+}
+
+.required:before{
+  font-weight: bold;
+  font-size: large;
+  content:"*";
+  color: #e32;
+  position: absolute;
+  margin: 2px 0px 0px -20px;
+  padding: 0 5px 0 0;
+}
+
+form.with-required:after{
+  font-weight: bold;
+  content:"* = required fields";
+  color: #e32;
+}
