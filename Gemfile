@@ -62,8 +62,12 @@ gem "haml", "~> 5.0"
 # Added at 2018-02-09 16:58:18 -0500 by Nick:
 gem "haml-rails", "~> 1.0"
 
-# Added at 2018-02-09 17:28:59 -0500 by Nick:
-gem "bootstrap", "~> 4.0"
 
-# Added at 2018-02-09 17:29:18 -0500 by Nick:
-gem "better_errors", "~> 2.4"
+# Added at 2018-02-14 16:21:11 -0500 by Nick:
+gem "bootstrap-sass", "~> 3.3"
+
+# Added at 2018-02-14 16:26:51 -0500 by Nick:
+gem "jquery-rails", "~> 4.3"
+
+# Added at 2018-02-14 16:35:09 -0500 by Nick:
+gem "bootstrap3-datetimepicker-rails", "~> 4.17"
