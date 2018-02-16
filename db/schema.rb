@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20180214191322) do
   create_table "shifts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "start_time"
     t.datetime "end_time"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
