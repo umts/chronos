@@ -1,6 +1,6 @@
 .page-header
   .container
-    %a{href: "http://umass.edu/"}= image_tag "umass-wordmark-wht.png", skip_pipeline: true, alt: "UMass Amherst", width: "175", height: "23"
+    %a{href: "http://umass.edu/"}= image_tag("umass-wordmark-wht.png", alt: "UMass Amherst", width: "175", height: "23")
     %form#gs.pull-right{action: "http://googlebox.oit.umass.edu/search", method: "get", name: "gs", onsubmit: "if (this.q.value=='Search UMass Amherst') return false;", style: "margin: 0; padding: 0"}
       %div
         %label{for: "q", style: "display:inline-block"}
@@ -12,4 +12,4 @@
         %input{name: "output", type: "hidden", value: "xml_no_dtd"}/
 .sub-header
   .container
-    = link_to image_tag("placeholder.png", alt: "UMass Parking Services"), "https://parking.umass.edu/", class: "pull-left"
+    = link_to image_tag("parking-logo.png", alt: "UMass Parking Services"), "https://parking.umass.edu/", class: "pull-left"
