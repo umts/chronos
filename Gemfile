@@ -67,3 +67,6 @@ gem "bootstrap", "~> 4.0"
 
 # Added at 2018-02-09 17:29:18 -0500 by Nick:
 gem "better_errors", "~> 2.4"
+
+# Added at 2018-02-14 14:12:26 -0500 by Nick:
+gem "paper_trail", "~> 8.1"
