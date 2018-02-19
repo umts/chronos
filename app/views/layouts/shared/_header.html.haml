@@ -1,0 +1,15 @@
+.page-header
+  .container
+    %a{href: "http://umass.edu/"}= image_tag("umass-wordmark-wht.png", alt: "UMass Amherst", width: "175", height: "23")
+    %form#gs.pull-right{action: "http://googlebox.oit.umass.edu/search", method: "get", name: "gs", onsubmit: "if (this.q.value=='Search UMass Amherst') return false;", style: "margin: 0; padding: 0"}
+      %div
+        %label{for: "q", style: "display:inline-block"}
+          %input#q{name: "q", onblur: "if (this.value=='') this.value='Search UMass Amherst'", onfocus: "if (this.value=='Search UMass Amherst') this.value=''", size: "22", style: "font-size:11px; font-family:Verdana,sans-serif; padding-left:2px; width:150px", type: "text", value: "Search UMass Amherst"}/
+        %input{name: "sa", style: "font-size: 11px; font-family: Verdana, sans-serif;", type: "submit", value: "Go"}/
+        %input{name: "site", type: "hidden", value: "default_collection"}/
+        %input{name: "client", type: "hidden", value: "default_frontend"}/
+        %input{name: "proxystylesheet", type: "hidden", value: "default_frontend"}/
+        %input{name: "output", type: "hidden", value: "xml_no_dtd"}/
+.sub-header
+  .container
+    = link_to image_tag("parking-logo.png", alt: "UMass Parking Services"), "https://parking.umass.edu/", class: "pull-left"
