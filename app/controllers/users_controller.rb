@@ -1,4 +1,4 @@
-class UserController < ApplicationController
+class UsersController < ApplicationController
   def index
   end
 
@@ -18,6 +18,7 @@ class UserController < ApplicationController
     else
       flash[:warning] = @user.errors.full_messages
       render 'new'
+    end
   end
 
   def edit
@@ -31,6 +32,7 @@ class UserController < ApplicationController
       flash[:warning] = 'User could now be updated'
       render 'edit'
     end
+  end
 
   def destroy
   end
