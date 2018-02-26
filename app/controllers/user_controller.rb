@@ -1,4 +1,4 @@
-class UserControllerController < ApplicationController
+class UserController < ApplicationController
   def index
   end
 
@@ -37,6 +37,6 @@ class UserControllerController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit()
+    params.require(:user).permit(:first_name, :last_name, :email, :spire_id)
   end
 end
