@@ -9,7 +9,17 @@
   %body
     = render partial: 'layouts/shared/header'
     = render partial: 'layouts/shared/navbar'
-    /= tabs
+
+    - if flash[:message].present?
+      .container-fluid#message
+        %table.flash-message
+          = flash[:message]
+    - if flash[:errors].present?
+      - flash[:errors].each do |error_message|
+        .container-fluid#error
+          %table.flash-message
+            = error_message
+
     .container.main-content
       %h1
         = yield :page_header
