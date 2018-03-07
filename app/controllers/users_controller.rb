@@ -25,6 +25,9 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @supervisors = {} # placeholders
+    @divisions = {}
+    @positions = {}
   end
 
   def update

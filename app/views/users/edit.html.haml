@@ -1,0 +1,71 @@
+%h1 Edit User
+  = form_for @user, html: { class: 'form-horizontal' } do |f|
+    .form-group
+      .control-label.col-xs-2
+        = f.label :first_name, 'First Name'
+      .col-xs-5
+        = f.text_field :first_name, class: 'form-control',
+                                    value: @user.first_name,
+                                    required: true
+    .form-group
+      .control-label.col-xs-2
+        = f.label :last_name, 'Last Name'
+      .col-xs-5
+        = f.text_field :last_name, class: 'form-control',
+                                   value: @user.last_name,
+                                   required: true
+    .form-group
+      .control-label.col-xs-2
+        = f.label :email, 'Email'
+      .col-xs-5
+        = f.text_field :email, class: 'form-control',
+                               value: @user.email,
+                               required: true
+    .form-group
+      .control-label.col-xs-2
+        = f.label :spire_id, 'Spire ID'
+      .col-xs-5
+        = f.text_field :spire_id, class: 'form-control',
+                                  value: @user.spire_id
+                                  required: true,
+                                  maxlength: 8
+    .form-group
+      .control-label.col-xs-2
+        = f.label :division, 'Division'
+      .col-xs-5
+        = f.select :division, @divisions.collect { |d| [d.id, d.name] },
+                              class: 'selectpicker form-control',
+                              selected: @user.division,
+                              include_blank: true
+    .form-group
+      .control-label.col-xs-2
+        = f.label :position_id, 'Position'
+      .col-xs-5
+        = f.select :position_id, @positions.collect{ |p| [p.id, p.name] },
+                                 class: 'selectpicker form-control',
+                                 selected: @user.position_id,
+                                 include_blank: true
+    .form-group
+      .control-label.col-xs-2
+        = f.label :supervisor_id, 'Supervisor'
+      .col-xs-5
+        = f.select :supervisor_id, @supervisors.collect { |s| [s.id, s.first_name + s.last_name] },
+                                   class: 'selectpicker form-control',
+                                   selected: @user.supervisor_id
+                                   include_blank: true
+    .form-group
+      .control-label.col-xs-2
+        = f.label :hr_id, 'HR ID'
+      .col-xs-5
+        = f.text_field :hr_id, class: 'form-control',
+                               value: @user.hr_id
+    .form-group
+      .control-label.col-xs-2
+        = f.label :swipe_id, 'Swipe ID'
+      .col-xs-5
+        = f.text_field :swipe_id, class: 'form-control',
+                                  value: @user.swipe_id
+    .form-group
+      .col-xs-offset-2.col-xs-5
+        = f.submit 'Create', class: 'btn btn-primary'
+        = link_to 'Cancel', users_path, class: 'btn btn-primary'
