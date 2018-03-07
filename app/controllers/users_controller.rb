@@ -7,6 +7,9 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @supervisors = {} # placeholders
+    @divisions = {}
+    @positions = {}
   end
 
   def create

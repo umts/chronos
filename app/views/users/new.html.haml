@@ -23,6 +23,37 @@
                                 required: true,
                                 maxlength: 8
   .form-group
+    .control-label.col-xs-2
+      = f.label :division, 'Division'
+    .col-xs-5
+      = f.select :division, @divisions.collect { |d| [d.id, d.name] },
+                            class: 'selectpicker form-control',
+                            include_blank: true
+  .form-group
+    .control-label.col-xs-2
+      = f.label :position_id, 'Position'
+    .col-xs-5
+      = f.select :position_id, @positions.collect{ |p| [p.id, p.name] },
+                               class: 'selectpicker form-control',
+                               include_blank: true
+  .form-group
+    .control-label.col-xs-2
+      = f.label :supervisor_id, 'Supervisor'
+    .col-xs-5
+      = f.select :supervisor_id, @supervisors.collect { |s| [s.id, s.first_name + s.last_name] },
+                                 class: 'selectpicker form-control',
+                                 include_blank: true
+  .form-group
+    .control-label.col-xs-2
+      = f.label :hr_id, 'HR ID'
+    .col-xs-5
+      = f.text_field :hr_id, class: 'form-control'
+  .form-group
+    .control-label.col-xs-2
+      = f.label :swipe_id, 'Swipe ID'
+    .col-xs-5
+      = f.text_field :swipe_id, class: 'form-control'
+  .form-group
     .col-xs-offset-2.col-xs-5
       = f.submit 'Create', class: 'btn btn-primary'
       = link_to 'Cancel', users_path, class: 'btn btn-primary'
