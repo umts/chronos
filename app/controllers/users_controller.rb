@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
   def index
+    @users = User.all
+    # should by default only display users that belong to
+    # the supervisor looking at this page
+    # permissions should also be locked to supervisors for this controller
   end
 
   def show
