@@ -3,5 +3,7 @@ Rails.application.routes.draw do
 
   resources :home, only: [:index]
 
-  resources :users
+  resources :users do
+    resources :timesheet, only: [:index]
+  end
 end
