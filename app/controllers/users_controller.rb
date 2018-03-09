@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @supervisors = {} # placeholders
+    @supervisors = User.where(is_supervisor: true)
     @divisions = {}
     @positions = {}
   end
@@ -24,12 +24,12 @@ class UsersController < ApplicationController
       redirect_to users_path
     else
       flash[:warning] = @user.errors.full_messages
-      render 'new'
+      redirect_to action: :new
     end
   end
 
   def edit
-    @supervisors = {} # placeholders
+    @supervisors = User.where(is_supervisor: true)
     @divisions = {}
     @positions = {}
   end
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
       redirect_to users_path
     else
       flash[:warning] = 'User could now be updated'
-      render 'edit'
+      redirect_to action: :edit
     end
   end
 
