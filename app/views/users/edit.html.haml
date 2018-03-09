@@ -33,7 +33,7 @@
       .control-label.col-xs-2
         = f.label :division, 'Division'
       .col-xs-5
-        = f.select :division, @divisions.collect { |d| [d.id, d.name] },
+        = f.select :division, @divisions.collect { |d| [d.id, d.name] }, {},
                               class: 'selectpicker form-control',
                               selected: @user.division,
                               include_blank: true
@@ -41,7 +41,7 @@
       .control-label.col-xs-2
         = f.label :position_id, 'Position'
       .col-xs-5
-        = f.select :position_id, @positions.collect{ |p| [p.id, p.name] },
+        = f.select :position_id, @positions.collect{ |p| [p.id, p.name] }, {},
                                  class: 'selectpicker form-control',
                                  selected: @user.position_id,
                                  include_blank: true
@@ -49,7 +49,7 @@
       .control-label.col-xs-2
         = f.label :supervisor_id, 'Supervisor'
       .col-xs-5
-        = f.select :supervisor_id, @supervisors.collect { |s| [s.id, s.first_name + s.last_name] },
+        = f.select :supervisor_id, @supervisors.collect { |s| [s.id, s.first_name + s.last_name] }, {},
                                    class: 'selectpicker form-control',
                                    selected: @user.supervisor_id
                                    include_blank: true
@@ -65,6 +65,12 @@
       .col-xs-5
         = f.text_field :swipe_id, class: 'form-control',
                                   value: @user.swipe_id
+    .form-group
+      .control-label.col-xs-2
+        = f.label :is_supervisor, 'Supervisor?'
+      .col-xs-5
+        = f.check_box :is_supervisor, class: 'form-control checkbox-inline',
+                                      checked: @user.is_supervisor
     .form-group
       .col-xs-offset-2.col-xs-5
         = f.submit 'Create', class: 'btn btn-primary'
