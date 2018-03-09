@@ -76,3 +76,5 @@ gem "better_errors", "~> 2.4"
 
 # Added at 2018-02-14 14:12:26 -0500 by Nick:
 gem "paper_trail", "~> 8.1"
+# Added at 2018-03-09 13:17:52 -0500 by Nick:
+gem "binding_of_caller", "~> 0.8.0"
