@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}/
     %title Chronos
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
@@ -9,7 +9,22 @@
   %body
     = render partial: 'layouts/shared/header'
     = render partial: 'layouts/shared/navbar'
-    /= tabs
+
+    - flash.each do |name, msg|
+      - glyph = 'glyphicon glyphicon-alert flash-icon'  if name == 'warning'
+      - glyph = 'glyphicon glyphicon-remove flash-icon' if name == 'danger'
+      - glyph = 'glyphicon glyphicon-ok flash-icon'     if name == 'success'
+      - glyph = 'glyphicon glyphicon-info-sign flash-icon'   if name == 'info'
+
+      %div{class: "alert alert-#{name} container-fluid"}
+        %table.flash-message
+          %td
+            %span{class: glyph}
+          %td
+            - [*msg].each do |m|
+              %div
+                = m
+
     .container.main-content
       %h1
         = yield :page_header
