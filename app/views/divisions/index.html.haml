@@ -1,0 +1,21 @@
+%h1 Divisions
+
+%h2
+  = link_to 'New Division', new_division_path, class: 'btn btn-primary'
+
+%table.table.table-striped.table-bordered.table-hover
+  %tr
+    %th Name
+    %th.min-width Actions
+  - @divisions.each do |division|
+    %tr
+      %td
+        = division.name
+      %td{class: 'min-width', align: 'center'}
+        = link_to (content_tag(:span, nil, class: 'glyphicon glyphicon-trash')+' Delete'),
+                   division,
+                   method: :delete,
+                   data: { confirm: 'Are you sure?' },
+                   class: 'btn btn-xs btn-danger'
+
+
