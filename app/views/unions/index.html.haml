@@ -1,0 +1,21 @@
+%h1 Unions
+
+%h2
+  = link_to 'New Union', new_union_path, class: 'btn btn-primary'
+
+%table.table.table-striped.table-bordered.table-hover
+  %tr
+    %th Name
+    %th.min-width Actions
+  - @unions.each do |union|
+    %tr
+      %td
+        = union.name
+      %td{class: 'min-width', align: 'center'}
+        = link_to (content_tag(:span, nil, class: 'glyphicon glyphicon-trash')+' Delete'),
+                   union,
+                   method: :delete,
+                   data: { confirm: 'Are you sure?' },
+                   class: 'btn btn-xs btn-danger'
+
+
