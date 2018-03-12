@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :home, only: [:index]
 
   resources :positions, only: [:index, :new, :create, :destroy]
+  resources :divisions, only: [:index, :new, :create, :destroy]
 end
