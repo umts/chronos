@@ -5,6 +5,7 @@ class PositionsController < ApplicationController
 
   def new
     @position = Position.new
+    @unions = Union.all
   end
 
   def create
@@ -20,6 +21,7 @@ class PositionsController < ApplicationController
   end
 
   def destroy
+    @position = Position.find(params[:id])
     @position.destroy
     flash[:success] = "Position Successfully Deleted"
     redirect_to positions_url
@@ -27,6 +29,6 @@ class PositionsController < ApplicationController
 
   private
   def position_params
-    params.require(:position).pemit(:name)
+    params.require(:position).permit(:name, :union_id)
   end
 end
