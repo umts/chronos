@@ -15,10 +15,9 @@
       %td
         = position.union.name
       %td{class: 'min-width', align: 'center'}
-        = link_to (content_tag(:span, nil, class: 'glyphicon glyphicon-trash')+' Delete'),
-                   position,
-                   method: :delete,
-                   data: { confirm: 'Are you sure?' },
-                   class: 'btn btn-xs btn-danger'
+        = form_tag position, method: :delete, data: { confirm: 'Are you sure?' } do
+          = button_tag(class: 'btn btn-xs btn-danger') do
+            %span.glyphicon.glyphicon-trash
+            Delete
 
 
