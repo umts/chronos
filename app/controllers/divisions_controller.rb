@@ -23,7 +23,7 @@ class DivisionsController < ApplicationController
     @division = Division.find(params[:id])
     @division.destroy
     flash[:success] = "Division Successfully Deleted"
-    redirect_to divisions_url
+    redirect_to divisions_path
   end
 
   private

@@ -23,7 +23,7 @@ class UnionsController < ApplicationController
     @union = Union.find(params[:id])
     @union.destroy
     flash[:success] = "Union Successfully Deleted"
-    redirect_to unions_url
+    redirect_to unions_path
   end
 
   private
