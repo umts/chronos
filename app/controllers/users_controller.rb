@@ -12,8 +12,8 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @supervisors = User.where(is_supervisor: true)
-    @divisions = {}
-    @positions = {}
+    @divisions = Division.all
+    @positions = Position.all
   end
 
   def create
@@ -30,8 +30,8 @@ class UsersController < ApplicationController
 
   def edit
     @supervisors = User.where(is_supervisor: true)
-    @divisions = {}
-    @positions = {}
+    @divisions = Division.all
+    @positions = Position.all
   end
 
   def update
@@ -45,6 +45,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+
   end
 
   private
