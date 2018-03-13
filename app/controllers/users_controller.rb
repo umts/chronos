@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def index
     @users = User.all
-    # should by default only display users that belong to
+    # TODO: should by default only display users that belong to
     # the supervisor looking at this page
     # permissions should also be locked to supervisors for this controller
   end
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      flash[:success] = 'User successfully created'
+      flash[:success] = 'User Successfully Created'
       redirect_to users_path
     else
       flash[:warning] = @user.errors.full_messages
@@ -36,10 +36,10 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      flash[:success] = 'User successfully updated'
+      flash[:success] = 'User Successfully Updated'
       redirect_to users_path
     else
-      flash[:warning] = 'User could now be updated'
+      flash[:warning] = 'User Could Not Be Updated'
       redirect_to action: :edit
     end
   end
