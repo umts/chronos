@@ -1,0 +1,20 @@
+%h1 Unions
+
+%h2
+  = link_to 'New Union', new_union_path, class: 'btn btn-primary'
+
+%table.table.table-striped.table-bordered.table-hover
+  %tr
+    %th Name
+    %th.min-width Actions
+  - @unions.each do |union|
+    %tr
+      %td
+        = union.name
+      %td{class: 'min-width', align: 'center'}
+        = form_tag union, method: :delete, data: { confirm: 'Are you sure?' } do
+          = button_tag(class: 'btn btn-xs btn-danger') do
+            %span.glyphicon.glyphicon-trash
+            Delete
+
+
