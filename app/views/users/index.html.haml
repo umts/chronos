@@ -13,19 +13,24 @@
     %th.min-width Actions
   - @users.each do |user|
     %tr
-      %td = user.first_name + ' ' + user.last_name
-      %td = user.email
-      %td = user.spire_id
-      %td / division
-      %td / position
+      %td
+        = user.first_name + ' ' + user.last_name
+      %td
+        = user.email
+      %td
+        = user.spire_id
+      %td
+        = user.division.name
+      %td
+        = user.position.name
       %td.min-width
-        = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-time')+' Time Sheet',
-                  user_timesheet_path(user),
-                  class: 'btn btn-xs btn-success'
+        / = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-time')+' Time Sheet',
+        /          user_timesheet_path(user),
+        /          class: 'btn btn-xs btn-success'
         = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-edit')+' Edit',
                   edit_user_path(user),
                   class: 'btn btn-xs btn-primary'
-        = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-trash')+' Remove',
+        = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-trash')+' Delete',
                   user_path(user),
                   method: :delete,
                   data: { confirm: 'Are you sure?' },
