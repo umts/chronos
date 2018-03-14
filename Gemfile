@@ -1,10 +1,5 @@
 source 'https://rubygems.org'
 
-git_source(:github) do |repo_name|
-  repo_name = '#{repo_name}/#{repo_name}' unless repo_name.include?('/')
-  'https://github.com/#{repo_name}.git'
-end
-
 # rails
 gem 'rails', '~> 5.1.4'
 gem 'puma', '~> 3.7'
@@ -16,18 +11,20 @@ gem 'turbolinks', '~> 5'
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 gem 'paper_trail', '~> 8.1'
 
+# haml
+gem 'haml', '~> 5.0'
+gem 'haml-rails', '~> 1.0'
+
+# javascript
+gem 'jquery-rails', '~> 4.3'
+gem 'coffee-rails', '~> 4.2'
+gem 'jbuilder', '~> 2.5'
+
 # css/sass
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17'
 
-# haml
-gem 'haml', '~> 5.0'
-gem 'haml-rails', '~> 1.0'
-
-gem 'jquery-rails', '~> 4.3'
-gem 'coffee-rails', '~> 4.2'
-gem 'jbuilder', '~> 2.5'
 
 group :development, :test do
   # debugging
