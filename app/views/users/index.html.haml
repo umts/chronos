@@ -20,13 +20,14 @@
       %td
         = user.spire_id
       %td
-        = user.division.name
+        / this was nil, will fix in users pr
+        / = user.division.name
       %td
         = user.position.name
       %td.min-width
-        / = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-time')+' Time Sheet',
-        /          user_timesheet_path(user),
-        /          class: 'btn btn-xs btn-success'
+        = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-time')+' Time Sheet',
+                  user_timesheets_path(user),
+                  class: 'btn btn-xs btn-success'
         = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-edit')+' Edit',
                   edit_user_path(user),
                   class: 'btn btn-xs btn-primary'
