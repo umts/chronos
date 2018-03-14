@@ -49,4 +49,13 @@ group :test do
   # testing
   gem "rspec-rails", "~> 3.7"
   gem 'factory_bot_rails', '~> 4.8'
+  gem "timecop", "~> 0.9.1"
+
+  # coverage
+  gem "simplecov", "~> 0.15.1"
+
+  # system tests
+  gem "capybara", "~> 2.18"
+  gem "capybara-selenium", "~> 0.0.6"
+  gem "selenium-webdriver", "~> 3.11"
 end
