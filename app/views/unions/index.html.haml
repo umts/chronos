@@ -12,6 +12,7 @@
       %td
         = union.name
       %td{class: 'min-width', align: 'center'}
-        = button_to union_path(union), class: 'btn btn-xs btn-danger' do
+        = button_to union_path(union), method: :delete,
+          data: { confirm: 'are you sure?' }, class: 'btn btn-xs btn-danger' do
           %span.glyphicon.glyphicon-trash
           Delete
