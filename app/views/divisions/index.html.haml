@@ -12,9 +12,9 @@
       %td
         = division.name
       %td{class: 'min-width', align: 'center'}
-        = form_tag division, method: :delete, data: { confirm: 'Are you sure?' } do
-          = button_tag(class: 'btn btn-xs btn-danger') do
-            %span.glyphicon.glyphicon-trash
-            Delete
+        = button_to division_path(division), method: :delete,
+          data: { confirm: 'are you sure?' }, class: 'btn btn-xs btn-danger' do
+          %span.glyphicon.glyphicon-trash
+          Delete
 
 
