@@ -24,7 +24,7 @@ class PositionsController < ApplicationController
     @position = Position.find(params[:id])
     @position.destroy
     flash[:success] = "Position Successfully Deleted"
-    redirect_to positions_url
+    redirect_to positions_path
   end
 
   private
