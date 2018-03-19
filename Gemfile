@@ -55,4 +55,5 @@ group :test do
   gem "capybara", "~> 2.18"
   gem "capybara-selenium", "~> 0.0.6"
   gem "selenium-webdriver", "~> 3.11"
+  gem "chromedriver-helper", "~> 1.2"
 end
