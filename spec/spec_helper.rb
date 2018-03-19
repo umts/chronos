@@ -1,6 +1,3 @@
-# Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
-
 # simplecov needs to be started before everything else
 require 'simplecov'
 SimpleCov.start 'rails' do
@@ -12,6 +9,9 @@ end
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
+
+# Prevent database truncation if the environment is production
+abort("The Rails environment is running in production mode!") if Rails.env.production?
 
 # grab support files
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
