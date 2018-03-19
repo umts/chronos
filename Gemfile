@@ -49,7 +49,7 @@ group :test do
   gem "timecop", "~> 0.9.1"
 
   # coverage
-  gem "simplecov", "~> 0.15.1"
+  gem "simplecov", "~> 0.15.1", require: false
 
   # system tests
   gem "capybara", "~> 2.18"
