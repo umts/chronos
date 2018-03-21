@@ -3,6 +3,6 @@ FactoryBot.define do
     first_name 'Test'
     last_name 'User'
     email 'test@user.com'
-    spire_id '12345678'
+    sequence(:spire_id) {|si| "#{si}"}
   end
 end
