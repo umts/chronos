@@ -1,0 +1,23 @@
+%h1 Positions
+
+%h2
+  = link_to 'New Position', new_position_path, class: 'btn btn-primary'
+
+%table.table.table-striped.table-bordered.table-hover
+  %tr
+    %th Name
+    %th Union
+    %th.min-width Actions
+  - @positions.each do |position|
+    %tr
+      %td
+        = position.name
+      %td
+        = position.union.name
+      %td{class: 'min-width', align: 'center'}
+        = button_to position_path(position), method: :delete,
+          data: { confirm: 'are you sure?' }, class: 'btn btn-xs btn-danger' do
+          %span.glyphicon.glyphicon-trash
+          Delete
+
+

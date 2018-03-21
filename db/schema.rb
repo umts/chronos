@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180214191322) do
+ActiveRecord::Schema.define(version: 20180309194113) do
+
+  create_table "divisions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "positions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text "description"
+    t.text "name"
     t.integer "union_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -34,7 +40,7 @@ ActiveRecord::Schema.define(version: 20180214191322) do
   end
 
   create_table "unions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text "description"
+    t.text "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
