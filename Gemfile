@@ -24,7 +24,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17'
-
+gem "bootstrap-select-rails", "~> 1.12"
 
 group :development, :test do
   # debugging
