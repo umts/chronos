@@ -58,7 +58,7 @@ class UsersController < ApplicationController
                                  :last_name,
                                  :email,
                                  :spire_id,
-                                 :division,
+                                 :division_id,
                                  :position_id,
                                  :supervisor_id,
                                  :swipe_id,
