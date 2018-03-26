@@ -24,9 +24,9 @@
                                 maxlength: 8
   .form-group
     .control-label.col-xs-2
-      = f.label :division, 'Division'
+      = f.label :division_id, 'Division'
     .col-xs-5
-      = f.select :division, @divisions.collect { |d| [d.name, d.id] }, {},
+      = f.select :division_id, @divisions.collect { |d| [d.name, d.id] }, {},
                             class: 'selectpicker form-control',
                             include_blank: true
   .form-group
