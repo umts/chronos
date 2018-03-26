@@ -9,4 +9,8 @@ class User < ApplicationRecord
   validates :spire_id,  uniqueness: true,
                         length: { is: 8 },
                         numericality: { only_integer: true }
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
