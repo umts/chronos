@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180309194113) do
+ActiveRecord::Schema.define(version: 20180326194920) do
 
   create_table "divisions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20180309194113) do
     t.string "first_name"
     t.string "last_name"
     t.string "email"
-    t.string "division"
+    t.integer "division_id"
     t.integer "position_id"
     t.integer "supervisor_id"
     t.integer "swipe_id"
