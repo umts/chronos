@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all
+    @users = User.active
     # TODO: should by default only display users that belong to
     # the supervisor looking at this page
     # permissions should also be locked to supervisors for this controller
+    # TODO: needs a way to display inactive users
   end
 
   def show
@@ -46,13 +47,14 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
+    @user.update_attribute(active: false)
     flash[:success] = 'User Successfully Deleted'
     redirect_to users_path
     # TODO: if a user is a supervisor we should remove them as supervisor from their supervisees
   end
 
   private
+
   def user_params
     params.require(:user).permit(:first_name,
                                  :last_name,
