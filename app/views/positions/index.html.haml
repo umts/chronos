@@ -13,7 +13,7 @@
       %td
         = position.name
       %td
-        = position.union.name
+        = position.union.try :name
       %td{class: 'min-width', align: 'center'}
         = button_to position_path(position), method: :delete,
           data: { confirm: 'are you sure?' }, class: 'btn btn-xs btn-danger' do

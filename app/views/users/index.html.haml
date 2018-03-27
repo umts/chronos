@@ -20,9 +20,9 @@
       %td
         = user.spire_id
       %td
-        = user.division.name
+        = user.division.try :name
       %td
-        = user.position.name
+        = user.position.try :name
       %td.min-width
         / = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-time')+' Time Sheet',
         /          user_timesheet_path(user),
