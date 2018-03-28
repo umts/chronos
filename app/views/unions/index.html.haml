@@ -13,6 +13,7 @@
         = union.name
       %td{class: 'min-width', align: 'center'}
         = button_to union_path(union), method: :delete,
-          data: { confirm: 'are you sure?' }, class: 'btn btn-xs btn-danger' do
+          data: { confirm: 'Are you sure? Deleting this Union will also delete all Positions that belong to it.' },
+                  class: 'btn btn-xs btn-danger' do
           %span.glyphicon.glyphicon-trash
           Delete
