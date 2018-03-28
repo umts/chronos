@@ -30,6 +30,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
     @supervisors = User.active.where(is_supervisor: true)
     @divisions = Division.all
     @positions = Position.all
