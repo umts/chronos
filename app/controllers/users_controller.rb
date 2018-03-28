@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @supervisors = User.where(is_supervisor: true)
+    @supervisors = User.active.where(is_supervisor: true)
     @divisions = Division.all
     @positions = Position.all
   end
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @supervisors = User.where(is_supervisor: true)
+    @supervisors = User.active.where(is_supervisor: true)
     @divisions = Division.all
     @positions = Position.all
   end
