@@ -40,7 +40,7 @@
     .control-label.col-xs-2
       = f.label :supervisor_id, 'Supervisor'
     .col-xs-5
-      = f.select :supervisor_id, @supervisors.collect { |s| [s.first_name + ' ' + s.last_name, s.id] }, {},
+      = f.select :supervisor_id, @supervisors.collect { |s| [s.full_name, s.id] }, {},
                                  class: 'selectpicker form-control',
                                  include_blank: true
   .form-group

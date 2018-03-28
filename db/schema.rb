@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20180327213139) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_supervisor"
-    t.boolean "active"
+    t.boolean "active", default: true
   end
 
   create_table "versions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|

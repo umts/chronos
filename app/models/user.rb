@@ -12,5 +12,8 @@ class User < ApplicationRecord
 
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
-  
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
