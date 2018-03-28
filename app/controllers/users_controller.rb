@@ -48,7 +48,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    @user.update_attribute(active: false)
+    @user.update_attribute(:active, false)
     flash[:success] = 'User Successfully Deleted'
     redirect_to users_path
     # TODO: if a user is a supervisor we should remove them as supervisor from their supervisees
