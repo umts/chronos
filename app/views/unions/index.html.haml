@@ -12,9 +12,8 @@
       %td
         = union.name
       %td{class: 'min-width', align: 'center'}
-        = form_tag union, method: :delete, data: { confirm: 'Are you sure?' } do
-          = button_tag(class: 'btn btn-xs btn-danger') do
-            %span.glyphicon.glyphicon-trash
-            Delete
-
-
+        = button_to union_path(union), method: :delete,
+          data: { confirm: 'Are you sure? Deleting this Union will also delete all Positions that belong to it.' },
+                  class: 'btn btn-xs btn-danger' do
+          %span.glyphicon.glyphicon-trash
+          Delete

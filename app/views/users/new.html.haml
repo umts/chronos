@@ -26,23 +26,23 @@
     .control-label.col-xs-2
       = f.label :division_id, 'Division'
     .col-xs-5
-      = f.select :division_id, @divisions.collect { |d| [d.name, d.id] }, {},
-                            class: 'selectpicker form-control',
-                            include_blank: true
+      = f.select :division_id, @divisions.collect { |d| [d.name, d.id] },
+                               { include_blank: 'None' },
+                               class: 'selectpicker form-control'
   .form-group
     .control-label.col-xs-2
       = f.label :position_id, 'Position'
     .col-xs-5
-      = f.select :position_id, @positions.collect{ |p| [p.name, p.id] }, {},
-                               class: 'selectpicker form-control',
-                               include_blank: true
+      = f.select :position_id, @positions.collect{ |p| [p.name, p.id] },
+                               { include_blank: 'None' },
+                               class: 'selectpicker form-control'
   .form-group
     .control-label.col-xs-2
       = f.label :supervisor_id, 'Supervisor'
     .col-xs-5
-      = f.select :supervisor_id, @supervisors.collect { |s| [s.full_name, s.id] }, {},
-                                 class: 'selectpicker form-control',
-                                 include_blank: true
+      = f.select :supervisor_id, @supervisors.collect { |s| [s.full_name, s.id] },
+                                 { include_blank: 'None' },
+                                 class: 'selectpicker form-control'
   .form-group
     .control-label.col-xs-2
       = f.label :hr_id, 'HR ID'
