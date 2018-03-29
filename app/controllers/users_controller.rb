@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :get_user, only: [:edit, :update, :destroy]
+
   def index
     @users = User.active
     # TODO: should by default only display users that belong to
@@ -27,14 +29,12 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
     @supervisors = User.active.where(is_supervisor: true)
     @divisions = Division.all
     @positions = Position.all
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = 'User Successfully Updated'
       redirect_to users_path
@@ -45,7 +45,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.update_attribute(:active, false)
     flash[:success] = 'User Successfully Deleted'
     redirect_to users_path
@@ -53,6 +52,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def get_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:first_name,
