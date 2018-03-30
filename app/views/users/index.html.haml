@@ -1,0 +1,39 @@
+%h1 Users
+
+%h2
+  = link_to 'New User', new_user_path, class: 'btn btn-primary'
+
+%table.table.table-striped.table-bordered.table-hover
+  %tr
+    %th Name
+    %th Email
+    %th Spire ID
+    %th Division
+    %th Position
+    %th.min-width Actions
+  - @users.each do |user|
+    %tr
+      %td
+        = user.full_name
+      %td
+        = user.email
+      %td
+        = user.spire_id
+      %td
+        = user.division.try :name
+      %td
+        = user.position.try :name
+      %td.min-width
+        / = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-time')+' Time Sheet',
+        /          user_timesheet_path(user),
+        /          class: 'btn btn-xs btn-success'
+        = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-edit')+' Edit',
+                  edit_user_path(user),
+                  class: 'btn btn-xs btn-primary'
+        = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-trash')+' Delete',
+                  user_path(user),
+                  method: :delete,
+                  data: { confirm: 'Are you sure?' },
+                  class: 'btn btn-xs btn-danger'
+
+

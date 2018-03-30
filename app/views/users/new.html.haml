@@ -1,0 +1,64 @@
+%h1 New User
+= form_for @user, html: { class: 'form-horizontal' } do |f|
+  .form-group
+    .control-label.col-xs-2
+      = f.label :first_name, 'First Name'
+    .col-xs-5
+      = f.text_field :first_name, class: 'form-control', required: true
+  .form-group
+    .control-label.col-xs-2
+      = f.label :last_name, 'Last Name'
+    .col-xs-5
+      = f.text_field :last_name, class: 'form-control', required: true
+  .form-group
+    .control-label.col-xs-2
+      = f.label :email, 'Email'
+    .col-xs-5
+      = f.text_field :email, class: 'form-control', required: true
+  .form-group
+    .control-label.col-xs-2
+      = f.label :spire_id, 'Spire ID'
+    .col-xs-5
+      = f.text_field :spire_id, class: 'form-control',
+                                required: true,
+                                maxlength: 8
+  .form-group
+    .control-label.col-xs-2
+      = f.label :division_id, 'Division'
+    .col-xs-5
+      = f.select :division_id, @divisions.collect { |d| [d.name, d.id] },
+                               { include_blank: 'None' },
+                               class: 'selectpicker form-control'
+  .form-group
+    .control-label.col-xs-2
+      = f.label :position_id, 'Position'
+    .col-xs-5
+      = f.select :position_id, @positions.collect{ |p| [p.name, p.id] },
+                               { include_blank: 'None' },
+                               class: 'selectpicker form-control'
+  .form-group
+    .control-label.col-xs-2
+      = f.label :supervisor_id, 'Supervisor'
+    .col-xs-5
+      = f.select :supervisor_id, @supervisors.collect { |s| [s.full_name, s.id] },
+                                 { include_blank: 'None' },
+                                 class: 'selectpicker form-control'
+  .form-group
+    .control-label.col-xs-2
+      = f.label :hr_id, 'HR ID'
+    .col-xs-5
+      = f.text_field :hr_id, class: 'form-control'
+  .form-group
+    .control-label.col-xs-2
+      = f.label :swipe_id, 'Swipe ID'
+    .col-xs-5
+      = f.text_field :swipe_id, class: 'form-control'
+  .form-group
+    .control-label.col-xs-2
+      = f.label :is_supervisor, 'Supervisor?'
+    .col-xs-5
+      = f.check_box :is_supervisor, class: 'checkbox-inline'
+  .form-group
+    .col-xs-offset-2.col-xs-5
+      = f.submit 'Create', class: 'btn btn-primary'
+      = link_to 'Cancel', users_path, class: 'btn btn-primary'
