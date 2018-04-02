@@ -1,4 +1,4 @@
-module TimesheetHelper
+module TimesheetsHelper
   # returns a hash of given shifts by date
   def shifts_by_date(shifts)
     shifts_hash = Hash.new{ |h, k| h[k] = [] }
