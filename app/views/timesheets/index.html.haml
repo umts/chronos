@@ -1,0 +1,24 @@
+%h1
+  = "Timesheet for #{@user.full_name}"
+= form_tag user_timesheets_path, method: 'GET', class: 'form-inline' do
+  .form-group.weekpicker
+    .control-label
+      = label_tag :week, 'Week of '
+      = date_field_tag :date, id: 'weekpicker', class: 'form-control', value: @date
+      = submit_tag 'Search', class: 'btn btn-primary'
+
+%br
+
+%table.table.table-striped.table-bordered.table-hover
+  %tr
+    %th Date
+    %th Start
+    %th End
+    %th Total
+  - shifts_by_date(@shifts).each do |date, shift|
+    - shifts.each do |shift|
+      %tr
+        - if shift == shifts.first
+          %td{rowspan: shifts.size }
+            = date
+
