@@ -6,4 +6,9 @@ $( document ).on("turbolinks:load", function() {
   $( ".timepicker" ).datetimepicker({
     format: 'h:mm A'
   });
+
+  $( ".datetimepicker" ).datetimepicker({
+    format: 'YYY-MM-DD h:mm A',
+    sideBySide: true
+  });
 });
