@@ -7,15 +7,11 @@
       = date_field_tag :date, id: 'weekpicker', class: 'form-control', value: @date
       = submit_tag 'Search', class: 'btn btn-primary'
 / - if current_user.supervisor?
-= binding.pry
-= form_for @new_shift, html: { class: 'form-horizontal' } do |f|
+= form_for [@user, @new_shift], html: { class: 'form-inline' } do |f|
   .form-group
-    .col-xs-4
-      = f.time_field :start_time, class: 'form-control', placeholder: 'Start Time'
-    .col-xs-4
-      = f.time_field :end_time, class: 'form-control', placeholder: 'End Time'
-    .col-xs-4
-      = f.submit 'Create', class: 'btn btn-primary'
+    = f.datetime_field :start_time, class: 'form-control', placeholder: 'Start Time'
+    = f.datetime_field :end_time, class: 'form-control', placeholder: 'End Time'
+    = f.submit 'Create', class: 'btn btn-primary'
 
 %br
 

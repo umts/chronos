@@ -1,6 +1,5 @@
 class ShiftsController < ApplicationController
   def create
-    binding.pry
     @shift = Shift.new(shift_params)
 
     if @shift.save
@@ -8,7 +7,7 @@ class ShiftsController < ApplicationController
     else
       flash[:warning] = @shift.errors.full_messages
     end
-    redirect_to user_timesheets_path(@shift.user)
+    redirect_to user_timesheets_path(params[:user_id])
   end
 
   def update
@@ -18,14 +17,14 @@ class ShiftsController < ApplicationController
     else
       flash[:warning] = 'Shift Could Not Be Updated'
     end
-    redirect_to user_timesheets_path(@shift.user)
+    redirect_to user_timesheets_path(params[:user_id])
   end
 
   def destroy
     @shift = Shift.find(params[:id])
     @shift.destroy
     flash[:success] = 'Shift Successfully Deleted'
-    redirect_to user_timesheets_path(@shift.user)
+    redirect_to user_timesheets_path(@shift.user.id)
   end
 
   private
