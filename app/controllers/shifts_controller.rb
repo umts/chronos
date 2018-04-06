@@ -1,5 +1,6 @@
 class ShiftsController < ApplicationController
   def create
+    binding.pry
     @shift = Shift.new(shift_params)
 
     if @shift.save
@@ -23,7 +24,7 @@ class ShiftsController < ApplicationController
   def destroy
     @shift = Shift.find(params[:id])
     @shift.destroy
-    flash[:success] = "Shift Successfully Deleted"
+    flash[:success] = 'Shift Successfully Deleted'
     redirect_to user_timesheets_path(@shift.user)
   end
 
@@ -33,6 +34,6 @@ class ShiftsController < ApplicationController
     params.require(:shift).permit(:user_id,
                                   :start_time,
                                   :end_time
-                                 )
+    )
   end
 end

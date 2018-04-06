@@ -6,19 +6,33 @@
       = label_tag :week, 'Week of '
       = date_field_tag :date, id: 'weekpicker', class: 'form-control', value: @date
       = submit_tag 'Search', class: 'btn btn-primary'
+/ - if current_user.supervisor?
+= binding.pry
+= form_for @new_shift, html: { class: 'form-horizontal' } do |f|
+  .form-group
+    .col-xs-4
+      = f.time_field :start_time, class: 'form-control', placeholder: 'Start Time'
+    .col-xs-4
+      = f.time_field :end_time, class: 'form-control', placeholder: 'End Time'
+    .col-xs-4
+      = f.submit 'Create', class: 'btn btn-primary'
 
 %br
 
-%table.table.table-striped.table-bordered.table-hover
-  %tr
-    %th Date
-    %th Start
-    %th End
-    %th Total
-  - shifts_by_date(@shifts).each do |date, shift|
-    - shifts.each do |shift|
-      %tr
-        - if shift == shifts.first
-          %td{rowspan: shifts.size }
-            = date
+- unless @shifts.empty?
+
+  %table.table.table-striped.table-bordered.table-hover
+    %tr
+      %th Date
+      %th Start
+      %th End
+      %th Total
+    - shifts_by_date(@shifts).each do |date, shift|
+      - shifts.each do |shift|
+        %tr
+          - if shift == shifts.first
+            %td{rowspan: shifts.size }
+              = date
+- else
+  = "No shifts for the week of #{@date.strftime('%A, %B %d %Y')}"
 

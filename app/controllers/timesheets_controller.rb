@@ -7,5 +7,7 @@ class TimesheetsController < ApplicationController
       @date = Date.today.beginning_of_week(:sunday)
     end
     @shifts = Shift.where(user: @user, start_time: @date..(@date + 7.days)).order(:start_time)
+
+    @new_shift = Shift.new
   end
 end

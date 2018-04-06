@@ -22,7 +22,7 @@ module FormHelper
   def time_field_tag(method, options = {})
     content_tag :div, {class: "input-group date timepicker"} do
       options[:placeholder] = "HH:MM AM"
-      concat text_field_taf(method, nil, options)
+      concat text_field_tag(method, nil, options)
       concat content_tag :span, (
         content_tag :span, nil, {class: "glyphicon glyphicon-time"}
         ), {class: "input-group-addon"}
