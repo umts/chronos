@@ -24,6 +24,7 @@ gem 'simple_calendar', '~> 2.2'
 # css/sass
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3'
+gem 'momentjs-rails', '~> 2.9'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17'
 gem "bootstrap-select-rails", "~> 1.12"
 

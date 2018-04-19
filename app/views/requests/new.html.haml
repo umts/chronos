@@ -1,0 +1,27 @@
+%h1 New Time Off Request
+= form_for @request, html: { class: 'form-horizontal' } do |f|
+  .form-group
+    .control-label.col-xs-2
+      = f.label :start_time, 'Start Time'
+    .col-xs-5
+      = f.datetime_field :start_time, class: 'form-control', required: true
+
+  .form-group
+    .control-label.col-xs-2
+      = f.label :end_time, 'End Time'
+    .col-xs-5
+      = f.datetime_field :end_time, class: 'form-control', required: true
+
+  .form-group
+    .control-label.col-xs-2
+      = f.label :request_type_id, 'Type'
+    .col-xs-5
+      = f.select :request_type_id,
+                 @request_types.collect { |rt| ["#{rt.description} (#{rt.code})", rt.id] },
+                 { include_blank: 'None' },
+                 class: 'selectpicker form-control'
+
+  .form-group
+    .col-xs-offset-2.col-xs-5
+      = f.submit 'Create', class: 'btn btn-primary'
+      = link_to 'Cancel', requests_path, class: 'btn btn-primary'
