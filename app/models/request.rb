@@ -4,7 +4,7 @@ class Request < ApplicationRecord
   belongs_to :supervisor, foreign_key: :supervisor_id, class_name: 'User', optional: true
   belongs_to :request_type
 
-  validates :user, :start_time, :end_time, presence: true
+  validates :user, :start_time, :end_time, :request_type, presence: true
 
   validate :verify_times
 
