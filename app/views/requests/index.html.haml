@@ -4,4 +4,5 @@
   %div= date.day
   - requests.each do |request|
     %div{ :class => (request.approved ? 'approved-request' : 'not-approved-request') }
-      = "#{request.user.first_name} #{request.user.last_name} (#{request.request_type.code})"
+      = link_to "#{request.user.first_name} #{request.user.last_name} (#{request.request_type.code})",
+                edit_request_path(request)

@@ -1,7 +1,8 @@
 class RequestsController < ApplicationController
+  # TODO: Remove me, should be set somewhere else
+  before_action :set_current_user
+
   def index
-    # TODO: This should be the actual current user
-    @current_user = User.first
     if @current_user.is_supervisor
       @requests = Request.all
     else
@@ -15,12 +16,11 @@ class RequestsController < ApplicationController
   end
 
   def create
-    @request = Request.new(request_params)
+    @request = Request.new(request_save_params)
     date_format = '%m/%d/%Y %I:%M %p'
-    @request.start_time = Date.strptime(request_params[:start_time], date_format)
-    @request.end_time = Date.strptime(request_params[:end_time], date_format)
-    # TODO: This should be the current user
-    @request.user = User.first
+    @request.start_time = Date.strptime(request_save_params[:start_time], date_format)
+    @request.end_time = Date.strptime(request_save_params[:end_time], date_format)
+    @request.user = @current_user
 
     if @request.save
       flash[:success] = 'Request Successfully Created'
@@ -31,19 +31,50 @@ class RequestsController < ApplicationController
     end
   end
 
-  def show; end
+  def edit
+    @request = Request.find(params[:id])
+    if can_modify_request
+      flash[:danger] = 'You do not have permission to edit a supervisor request'
+      redirect_to action: :index
+      return
+    end
+    @request_types = RequestType.all
+  end
 
-  def edit; end
-
-  def update; end
-
-  def destroy; end
+  def update
+    @request = Request.find(params[:id])
+    if can_modify_request
+      flash[:danger] = 'You do not have permission to update a supervisor request'
+      redirect_to action: :index
+      return
+    end
+    if @request.update(request_update_params)
+      flash[:success] = 'Request Successfully Updated'
+      redirect_to requests_path
+    else
+      flash[:warning] = 'Request Could Not Be Updated'
+      redirect_to action: :edit
+    end
+  end
 
   private
 
-  def request_params
+  def can_modify_request
+    !@current_user.is_supervisor && @request.user.is_supervisor
+  end
+
+  def set_current_user
+    # TODO: This should be the actual current user
+    @current_user = User.first
+  end
+
+  def request_save_params
     params.require(:request).permit(:start_time,
                                     :end_time,
                                     :request_type_id)
+  end
+
+  def request_update_params
+    params.require(:request).permit(:approved)
   end
 end
