@@ -19,9 +19,10 @@
       = f.select :request_type_id,
                  @request_types.collect { |rt| ["#{rt.description} (#{rt.code})", rt.id] },
                  { include_blank: 'None' },
-                 class: 'selectpicker form-control'
+                 class: 'selectpicker form-control',
+                 required: true
 
   .form-group
     .col-xs-offset-2.col-xs-5
       = f.submit 'Create', class: 'btn btn-primary'
-      = link_to 'Cancel', requests_path, class: 'btn btn-primary'
+      = link_to 'Cancel', requests_path, class: 'btn btn-default'

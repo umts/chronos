@@ -6,7 +6,7 @@ class CreateRequests < ActiveRecord::Migration[5.1]
       t.datetime :end_time
       t.integer :request_type_id
       t.integer :supervisor_id
-      t.boolean :approved
+      t.boolean :approved, default: false, null: false
 
       t.timestamps
     end

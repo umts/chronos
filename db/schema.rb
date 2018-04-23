@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20180419143152) do
     t.datetime "end_time"
     t.integer "request_type_id"
     t.integer "supervisor_id"
-    t.boolean "approved"
+    t.boolean "approved", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

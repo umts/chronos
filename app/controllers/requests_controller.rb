@@ -1,6 +1,12 @@
 class RequestsController < ApplicationController
   def index
-    @requests = Request.all
+    # TODO: This should be the actual current user
+    @current_user = User.first
+    if @current_user.is_supervisor
+      @requests = Request.all
+    else
+      @requests = Request.where(user: User.where(is_supervisor: false))
+    end
   end
 
   def new
