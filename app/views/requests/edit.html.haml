@@ -30,7 +30,7 @@
                  { include_blank: 'None' },
                  class: 'selectpicker form-control',
                  disabled: true
-  - if @current_user.is_supervisor
+  - if can_update_request
     .form-group
       .control-label.col-xs-2
         = f.label :approved, 'Approved?'
@@ -39,5 +39,5 @@
                                  checked: @request.approved
   .form-group
     .col-xs-offset-2.col-xs-5
-      = f.submit('Update', class: 'btn btn-primary') if @current_user.is_supervisor
+      = f.submit('Update', class: 'btn btn-primary') if can_update_request
       = link_to 'Cancel', requests_path, class: 'btn btn-default'

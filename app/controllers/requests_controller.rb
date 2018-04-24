@@ -1,4 +1,8 @@
 class RequestsController < ApplicationController
+  include RequestsHelper
+
+  before_action :get_request, only: [:edit, :update]
+
   def index
     if @current_user.is_supervisor
       @requests = Request.all
@@ -29,7 +33,6 @@ class RequestsController < ApplicationController
   end
 
   def edit
-    @request = Request.find(params[:id])
     unless can_view_request
       flash[:danger] = 'You do not have permission to view this request'
       redirect_to action: :index
@@ -39,8 +42,7 @@ class RequestsController < ApplicationController
   end
 
   def update
-    @request = Request.find(params[:id])
-    unless can_view_request
+    unless can_update_request
       flash[:danger] = 'You do not have permission to update this request'
       redirect_to action: :index
       return
@@ -56,9 +58,8 @@ class RequestsController < ApplicationController
 
   private
 
-  # Any supervisor can view a request, and any user can view approved requests.
-  def can_view_request
-    @current_user.is_supervisor || (!@current_user.is_supervisor && @request.approved)
+  def get_request
+    @request = Request.find(params[:id])
   end
 
   def request_save_params
