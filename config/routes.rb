@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   resources :positions, only: [:index, :new, :create, :destroy]
   resources :divisions, only: [:index, :new, :create, :destroy]
   resources :unions, only: [:index, :new, :create, :destroy]
+  resources :requests, only: [:index, :new, :create, :edit, :update]
 end

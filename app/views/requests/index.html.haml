@@ -1,0 +1,8 @@
+%h1 Time Off Requests
+= link_to 'Request Time Off', new_request_path, class: 'btn btn-primary'
+= month_calendar events: @requests do |date, requests|
+  %div= date.day
+  - requests.each do |request|
+    %div{ :class => (request.approved ? 'approved-request' : 'not-approved-request') }
+      = link_to "#{request.user.first_name} #{request.user.last_name} (#{request.request_type.code})",
+                edit_request_path(request)
