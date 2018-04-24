@@ -1,7 +1,4 @@
 class RequestsController < ApplicationController
-  # TODO: Remove me, should be set somewhere else
-  before_action :set_current_user
-
   def index
     if @current_user.is_supervisor
       @requests = Request.all
@@ -61,11 +58,6 @@ class RequestsController < ApplicationController
 
   def can_modify_request
     !@current_user.is_supervisor && @request.user.is_supervisor
-  end
-
-  def set_current_user
-    # TODO: This should be the actual current user
-    @current_user = User.first
   end
 
   def request_save_params
