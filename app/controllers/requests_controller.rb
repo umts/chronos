@@ -3,7 +3,7 @@ class RequestsController < ApplicationController
     if @current_user.is_supervisor
       @requests = Request.all
     else
-      @requests = Request.where(user: User.where(is_supervisor: false))
+      @requests = Request.where(approved: true)
     end
   end
 
@@ -30,8 +30,8 @@ class RequestsController < ApplicationController
 
   def edit
     @request = Request.find(params[:id])
-    if can_modify_request
-      flash[:danger] = 'You do not have permission to edit a supervisor request'
+    unless can_view_request
+      flash[:danger] = 'You do not have permission to view this request'
       redirect_to action: :index
       return
     end
@@ -40,8 +40,8 @@ class RequestsController < ApplicationController
 
   def update
     @request = Request.find(params[:id])
-    if can_modify_request
-      flash[:danger] = 'You do not have permission to update a supervisor request'
+    unless can_view_request
+      flash[:danger] = 'You do not have permission to update this request'
       redirect_to action: :index
       return
     end
@@ -56,8 +56,9 @@ class RequestsController < ApplicationController
 
   private
 
-  def can_modify_request
-    !@current_user.is_supervisor && @request.user.is_supervisor
+  # Any supervisor can view a request, and any user can view approved requests.
+  def can_view_request
+    @current_user.is_supervisor || (!@current_user.is_supervisor && @request.approved)
   end
 
   def request_save_params
