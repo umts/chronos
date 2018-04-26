@@ -1,4 +1,16 @@
 %h1 Time Off Request
+%p Modifying an already approved request will make it not approved until a supervisor approves it again.
+
+- if @request.approved?
+  %h3
+    Request approved by
+    = @current_user.first_name + ' ' + @current_user.last_name
+- if can_approve_request
+  - if @request.approved?
+    = button_to 'Reject', approve_request_path(@request), class: 'btn btn-danger'
+  - else
+    = button_to 'Approve', approve_request_path(@request), class: 'btn btn-success'
+
 = form_for @request, html: { class: 'form-horizontal' } do |f|
   .form-group
     .control-label.col-xs-2
@@ -11,16 +23,12 @@
     .control-label.col-xs-2
       = f.label :start_time, 'Start Time'
     .col-xs-5
-      = text_field_tag :start_time, @request.start_time.strftime('%m/%d/%Y %I:%M %p'),
-                                    class: 'form-control',
-                                    disabled: true
+      = f.text_field :start_time, class: 'form-control', required: true, disabled: !can_update_request
   .form-group
     .control-label.col-xs-2
       = f.label :end_time, 'End Time'
     .col-xs-5
-      = text_field_tag :end_time, @request.end_time.strftime('%m/%d/%Y %I:%M %p'),
-                                  class: 'form-control',
-                                  disabled: true
+      = f.text_field :end_time, class: 'form-control', required: true, disabled: !can_update_request
   .form-group
     .control-label.col-xs-2
       = f.label :request_type_id, 'Type'
@@ -29,14 +37,9 @@
                  @request_types.collect { |rt| ["#{rt.description} (#{rt.code})", rt.id] },
                  { include_blank: 'None' },
                  class: 'selectpicker form-control',
-                 disabled: true
-  - if can_update_request
-    .form-group
-      .control-label.col-xs-2
-        = f.label :approved, 'Approved?'
-      .col-xs-5
-        = f.check_box :approved, class: 'form-control checkbox-inline',
-                                 checked: @request.approved
+                 required: true,
+                 disabled: !can_update_request
+
   .form-group
     .col-xs-offset-2.col-xs-5
       = f.submit('Update', class: 'btn btn-primary') if can_update_request

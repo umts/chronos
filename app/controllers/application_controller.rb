@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
 
   def current_user
     # TODO: figure out the best way to set the current user
-    @current_user = User.first
+    @current_user = User.second
   end
 end
