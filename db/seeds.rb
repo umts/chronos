@@ -26,4 +26,13 @@ if Rails.env.development?
                       position: position2,
                       division: division1,
                       supervisor: supervisor)
+
+  Shift.create(start_time: Time.now, end_time: Time.now+1.hour, user: user1)
+  Shift.create(start_time: Time.now+4.hour, end_time: Time.now+7.hour, user: user1)
+  Shift.create(start_time: Time.now+36.hour, end_time: Time.now+38.hour, user: user1)
+  Shift.create(start_time: Time.now+52.hour, end_time: Time.now+60.hour, user: user1)
+  Shift.create(start_time: Time.now-36.hour, end_time: Time.now-28.hour, user: user2)
+  Shift.create(start_time: Time.now-10.hour, end_time: Time.now-7.hour, user: user2)
+  Shift.create(start_time: Time.now, end_time: Time.now+4.hour, user: user2)
+  Shift.create(start_time: Time.now+24.hour, end_time: Time.now+28.hour, user: user2)
 end
