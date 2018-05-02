@@ -12,7 +12,7 @@ class Shift < ApplicationRecord
 
   def length
     if start_time && end_time
-      time = ((end_time - start_time)/0.25.hour).floor / 4
+      time = ((end_time - start_time)/0.25.hour).round / 4
   end
 
   def total
