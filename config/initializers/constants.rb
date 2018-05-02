@@ -1,0 +1,1 @@
+CONSTANTS = YAML.load_file("#{Rails.root}/config/flex_constants.yml")[Rails.env]
