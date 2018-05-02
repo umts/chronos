@@ -23,12 +23,17 @@
       %th Start
       %th End
       %th Total
-    - shifts_by_date(@shifts).each do |date, shift|
+    - shifts_by_date(@shifts).each do |date, shifts|
       - shifts.each do |shift|
         %tr
           - if shift == shifts.first
             %td{rowspan: shifts.size }
               = date
+          %td
+            = shift.start_time if shift.start_time
+          %td
+            = shift.end_time if shift.end_time
+          %td
 - else
   = "No shifts for the week of #{@date.strftime('%A, %B %d %Y')}"
 
