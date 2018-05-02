@@ -5,7 +5,7 @@ class Shift < ApplicationRecord
   validate :verify_times
 
   def verify_times
-    if end_time and start_time > end_time
+    if end_time && start_time > end_time
       errors.add(:end_time, 'End time cannot be before start time')
     end
   end

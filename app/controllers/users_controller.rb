@@ -1,13 +1,12 @@
 class UsersController < ApplicationController
+  before_action :get_user, only: [:edit, :update, :destroy]
+
   def index
     @users = User.active
     # TODO: should by default only display users that belong to
     # the supervisor looking at this page
     # permissions should also be locked to supervisors for this controller
     # TODO: needs a way to display inactive users
-  end
-
-  def show
   end
 
   def new
@@ -30,7 +29,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
     @supervisors = User.active.where(is_supervisor: true)
     @divisions = Division.all
     @positions = Position.all
@@ -48,7 +46,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.update_attribute(:active, false)
     flash[:success] = 'User Successfully Deleted'
     redirect_to users_path
@@ -56,6 +53,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def get_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:first_name,
