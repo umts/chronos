@@ -27,12 +27,15 @@ if Rails.env.development?
                       division: division1,
                       supervisor: supervisor)
 
-  Shift.create(start_time: Time.now, end_time: Time.now+1.hour, user: user1)
-  Shift.create(start_time: Time.now+4.hour, end_time: Time.now+7.hour, user: user1)
-  Shift.create(start_time: Time.now+36.hour, end_time: Time.now+38.hour, user: user1)
-  Shift.create(start_time: Time.now+52.hour, end_time: Time.now+60.hour, user: user1)
-  Shift.create(start_time: Time.now-36.hour, end_time: Time.now-28.hour, user: user2)
-  Shift.create(start_time: Time.now-10.hour, end_time: Time.now-7.hour, user: user2)
-  Shift.create(start_time: Time.now, end_time: Time.now+4.hour, user: user2)
-  Shift.create(start_time: Time.now+24.hour, end_time: Time.now+28.hour, user: user2)
+
+  # generate shifts for the last 4 weeks
+  [supervisor, user1, user2].each do |user|
+    ((Date.today-28.days)..Date.today).each do |date|
+      unless date.saturday? || date.sunday?
+        start_time = date.to_time + 6.hours + rand(3*60).minutes # start at 6AM - 9AM
+        end_time = start_time + 2.hours + rand(6*60).minutes # 2 to 8 hours long
+        Shift.create(start_time: start_time, end_time: end_time, user: user)
+      end
+    end
+  end
 end
