@@ -20,20 +20,33 @@
   %table.table.table-striped.table-bordered.table-hover
     %tr
       %th Date
-      %th Start
-      %th End
-      %th Total
+      %th{style: 'text-align: center'} Start
+      %th{style: 'text-align: center'} End
+      %th{style: 'text-align: center'} Union
+      %th{style: 'text-align: center'} Lunch
+      %th{style: 'text-align: center'} Total
+      %th{style: 'text-align: center'} Code#1
+      %th{style: 'text-align: center'} Hour#1
     - shifts_by_date(@shifts).each do |date, shifts|
       - shifts.each do |shift|
         %tr
           - if shift == shifts.first
-            %td{rowspan: shifts.size }
-              = date
-          %td
-            = shift.start_time if shift.start_time
-          %td
-            = shift.end_time if shift.end_time
-          %td
+            %td{rowspan: shifts.size}
+              = date.strftime('%A %m-%d-%Y')
+          %td{style: 'text-align: center'}
+            = shift.start_time.strftime('%H:%M') if shift.start_time
+          %td{style: 'text-align: center'}
+            = shift.end_time.strftime('%H:%M') if shift.end_time
+          %td{style: 'text-align: center'}
+            = @user.union.name
+          %td{style: 'text-align: center'}
+            = shift.lunch
+          %td{style: 'text-align: center'}
+            = shift.total
+          %td{style: 'text-align: center'}
+          %td{style: 'text-align: center'}
+
+            
 - else
   = "No shifts for the week of #{@date.strftime('%A, %B %d %Y')}"
 
