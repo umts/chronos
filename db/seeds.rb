@@ -7,16 +7,26 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Test users
-User.create(first_name: 'Test',
-            last_name: 'Name',
-            spire_id: 12345678,
-            email: 'test@example.com',
-            is_supervisor: false)
-User.create(first_name: 'Supervisor',
-            last_name: 'Name',
-            spire_id: 11111111,
-            email: 'supervisor@example.com',
-            is_supervisor: true)
+test_user = User.create(first_name: 'Test',
+                        last_name: 'Name',
+                        spire_id: 12345678,
+                        email: 'test@example.com')
+medium_boss = User.create(first_name: 'Medium',
+                          last_name: 'Boss',
+                          spire_id: 11111111,
+                          email: 'mediumboss@example.com')
+big_boss = User.create(first_name: 'Big',
+                       last_name: 'Boss',
+                       spire_id: 11111112,
+                       email: 'bigboss@example.com')
+
+test_user.supervisors << medium_boss
+medium_boss.supervisors << big_boss
 
 # Test request types
 RequestType.create(code: 'FSK', description: 'Family Sick')
+
+# Test request statuses
+['approved', 'pending', 'rejected'].each do |d|
+  RequestStatus.create(description: d)
+end

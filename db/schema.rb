@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419143152) do
+ActiveRecord::Schema.define(version: 20180503132256) do
 
   create_table "divisions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -25,6 +25,10 @@ ActiveRecord::Schema.define(version: 20180419143152) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "request_statuses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "description"
+  end
+
   create_table "request_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "code"
     t.string "description"
@@ -34,11 +38,12 @@ ActiveRecord::Schema.define(version: 20180419143152) do
 
   create_table "requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "user_id"
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.date "date"
+    t.time "start_time"
+    t.time "end_time"
     t.integer "request_type_id"
-    t.integer "supervisor_id"
-    t.boolean "approved", default: false, null: false
+    t.integer "request_status_id"
+    t.integer "approved_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -49,6 +54,11 @@ ActiveRecord::Schema.define(version: 20180419143152) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "subordinates_supervisors", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "subordinate_id", null: false
+    t.bigint "supervisor_id", null: false
   end
 
   create_table "timetypes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -69,13 +79,11 @@ ActiveRecord::Schema.define(version: 20180419143152) do
     t.string "email"
     t.integer "division_id"
     t.integer "position_id"
-    t.integer "supervisor_id"
     t.integer "swipe_id"
     t.integer "hr_id"
     t.string "spire_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_supervisor"
     t.boolean "active", default: true
   end
 

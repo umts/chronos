@@ -1,14 +1,12 @@
 class RequestsController < ApplicationController
   include RequestsHelper
 
-  before_action :get_request, only: [:edit, :update, :approve]
+  before_action :get_request, only: [:edit, :update, :update_status]
 
   def index
-    if @current_user.is_supervisor
-      @requests = Request.all
-    else
-      @requests = Request.where(approved: true)
-    end
+    @requests = Request.where('user_id in (?) or request_status_id = ?',
+                              @current_user.nested_subordinates << @current_user,
+                              RequestStatus.approved)
   end
 
   def new
@@ -17,11 +15,12 @@ class RequestsController < ApplicationController
   end
 
   def create
-    @request = Request.new(request_save_params)
-    date_format = '%m/%d/%Y %I:%M %p'
-    @request.start_time = Date.strptime(request_save_params[:start_time], date_format)
-    @request.end_time = Date.strptime(request_save_params[:end_time], date_format)
+    @request = Request.new(request_params)
+    @request.date = Date.strptime(request_params[:date], '%Y-%m-%d')
+    @request.start_time = Time.strptime(request_params[:start_time], '%I:%M %p')
+    @request.end_time = Time.strptime(request_params[:end_time], '%I:%M %p')
     @request.user = @current_user
+    @request.request_status = RequestStatus.pending
 
     if @request.save
       flash[:success] = 'Request Successfully Created'
@@ -45,8 +44,8 @@ class RequestsController < ApplicationController
       flash[:danger] = 'You do not have permission to update this request'
       redirect_to action: :index and return
     end
-    if @request.approved
-      flash[:danger] = "You cannot update a request after it has been approved."\
+    if @request.approved?
+      flash[:danger] = "You cannot update a request after it has been approved. "\
                        "Please ask a supervisor to delete the request."
       redirect_to action: :index and return
     end
@@ -59,12 +58,12 @@ class RequestsController < ApplicationController
     end
   end
 
-  def approve
+  def update_status
     unless can_approve_request
       flash[:danger] = 'You do not have permission to approve this request'
       redirect_to action: :index and return
     end
-    if @request.toggle!(:approved) && @request.update(supervisor: @current_user)
+    if @request.update(request_status_params) && @request.update(approved_by: @current_user)
       flash[:success] = 'Request successfully updated'
       redirect_to action: :index
     else
@@ -80,8 +79,13 @@ class RequestsController < ApplicationController
   end
 
   def request_params
-    params.require(:request).permit(:start_time,
+    params.require(:request).permit(:date,
+                                    :start_time,
                                     :end_time,
                                     :request_type_id)
+  end
+
+  def request_status_params
+    params.permit(:request_status_id)
   end
 end

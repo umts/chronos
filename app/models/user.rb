@@ -1,8 +1,14 @@
 class User < ApplicationRecord
   belongs_to :position, optional: true
   belongs_to :division, optional: true
-  belongs_to :supervisor, foreign_key: :supervisor_id, class_name: 'User', optional: true
-  has_many :subordinates, foreign_key: :supervisor_id, class_name: 'User'
+  has_and_belongs_to_many :supervisors, foreign_key: :supervisor_id,
+                                        association_foreign_key: :subordinate_id,
+                                        class_name: 'User',
+                                        join_table: :subordinates_supervisors
+  has_and_belongs_to_many :subordinates, foreign_key: :subordinate_id,
+                                         association_foreign_key: :supervisor_id,
+                                         class_name: 'User',
+                                         join_table: :subordinates_supervisors
   has_many :shifts, dependent: :destroy
 
   validates :first_name, :last_name, :email, :spire_id, presence: true
@@ -15,5 +21,17 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  # Get every user that is a subordinate or subordinate of a subordinate of
+  # this user.
+  def nested_subordinates
+    subordinates.map { |user| user.nested_subordinates << user }.flatten
+  end
+
+  # Get every user that is a supervisor or a supervisor of a supervisor of
+  # this user.
+  def nested_supervisors
+    supervisors.map { |user| user.nested_supervisors << user }.flatten
   end
 end

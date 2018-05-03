@@ -1,15 +1,21 @@
 %h1 Time Off Request
-%p Modifying an already approved request will make it not approved until a supervisor approves it again.
 
-- if @request.approved?
-  %h3
+%h3
+  - if @request.approved?
     Request approved by
-    = @current_user.first_name + ' ' + @current_user.last_name
+    = @request.approved_by.full_name
+  - elsif @request.pending?
+    Request pending approval
+
 - if can_approve_request
   - if @request.approved?
-    = button_to 'Reject', approve_request_path(@request), class: 'btn btn-danger'
+    = button_to 'Reject',
+                update_status_request_path(@request, params: { request_status_id: RequestStatus.rejected }),
+                class: 'btn btn-danger btn-lg'
   - else
-    = button_to 'Approve', approve_request_path(@request), class: 'btn btn-success'
+    = button_to 'Approve',
+                update_status_request_path(@request, params: { request_status_id: RequestStatus.approved }),
+                class: 'btn btn-success btn-lg'
 
 = form_for @request, html: { class: 'form-horizontal' } do |f|
   .form-group
@@ -21,14 +27,19 @@
                               disabled: true
   .form-group
     .control-label.col-xs-2
+      = f.label :date, 'Date'
+    .col-xs-5
+      = f.date_field :date, class: 'datepicker form-control', required: true, disabled: !can_update_request
+  .form-group
+    .control-label.col-xs-2
       = f.label :start_time, 'Start Time'
     .col-xs-5
-      = f.text_field :start_time, class: 'form-control', required: true, disabled: !can_update_request
+      = f.time_field :start_time, class: 'form-control', required: true, disabled: !can_update_request
   .form-group
     .control-label.col-xs-2
       = f.label :end_time, 'End Time'
     .col-xs-5
-      = f.text_field :end_time, class: 'form-control', required: true, disabled: !can_update_request
+      = f.time_field :end_time, class: 'form-control', required: true, disabled: !can_update_request
   .form-group
     .control-label.col-xs-2
       = f.label :request_type_id, 'Type'

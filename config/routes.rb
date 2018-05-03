@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   resources :divisions, only: [:index, :new, :create, :destroy]
   resources :unions, only: [:index, :new, :create, :destroy]
   resources :requests, only: [:index, :new, :create, :edit, :update]
-  post 'requests/:id/approve', to: 'requests#approve', as: 'approve_request'
+  post 'requests/:id/update_status', to: 'requests#update_status', as: 'update_status_request'
 end
