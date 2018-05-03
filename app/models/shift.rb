@@ -13,6 +13,7 @@ class Shift < ApplicationRecord
   def length
     if start_time && end_time
       time = ((end_time - start_time)/0.25.hour).round / 4
+    end
   end
 
   def total
@@ -21,11 +22,15 @@ class Shift < ApplicationRecord
         max(length - CONSTANTS[:lunch_duration], CONSTANTS[:lunch_start])
       else
         length
+      end
+    end
   end
 
   def lunch
     if start_time && end_time
       if length > CONSTANTS[:lunch_start]
         min(length - total, CONSTANTS[:lunch_duration])
+      end
+    end
   end
 end
