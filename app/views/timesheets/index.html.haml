@@ -34,13 +34,13 @@
             %td{rowspan: shifts.size}
               = date.strftime('%A %m-%d-%Y')
           %td{style: 'text-align: center'}
-            = shift.start_time.strftime('%H:%M') if shift.start_time
+            = shift.start_time.strftime('%H:%M') if shift.start_time.present?
           %td{style: 'text-align: center'}
-            = shift.end_time.strftime('%H:%M') if shift.end_time
+            = shift.end_time.strftime('%H:%M') if shift.end_time.present?
           %td{style: 'text-align: center'}
             = @user.union.name
           %td{style: 'text-align: center'}
-            = shift.lunch
+            = shift.lunch if shift.lunch.nonzero?
           %td{style: 'text-align: center'}
             = shift.total
           %td{style: 'text-align: center'}
