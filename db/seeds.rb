@@ -26,4 +26,16 @@ if Rails.env.development?
                       position: position2,
                       division: division1,
                       supervisor: supervisor)
+
+
+  # generate shifts for the last 4 weeks
+  [supervisor, user1, user2].each do |user|
+    ((Date.today-28.days)..Date.today).each do |date|
+      unless date.saturday? || date.sunday?
+        start_time = date.to_time + 6.hours + rand(3*60).minutes # start at 6AM - 9AM
+        end_time = start_time + 2.hours + rand(6*60).minutes # 2 to 8 hours long
+        Shift.create(start_time: start_time, end_time: end_time, user: user)
+      end
+    end
+  end
 end
