@@ -1,4 +1,6 @@
 class PositionsController < ApplicationController
+  before_action :get_position, only: [:edit, :update, :destroy]
+
   def index
     @positions = Position.all
   end
@@ -20,14 +22,32 @@ class PositionsController < ApplicationController
     end
   end
 
+  def edit
+    @unions = Union.all
+  end
+
+  def update
+    if @position.update(position_params)
+      flash[:success] = 'Position Successfully Updated'
+      redirect_to positions_path
+    else
+      flash[:warning] = 'Position Could Not Be Updated'
+      redirect_to action: :edit
+    end
+  end
+
   def destroy
-    @position = Position.find(params[:id])
     @position.destroy
     flash[:success] = "Position Successfully Deleted"
     redirect_to positions_path
   end
 
   private
+
+  def get_position
+    @position = Position.find(params[:id])
+  end
+
   def position_params
     params.require(:position).permit(:name, :union_id)
   end
