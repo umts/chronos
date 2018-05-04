@@ -10,7 +10,7 @@ RSpec.describe TimesheetHelper, type: :helper do
     Timecop.return
   end
 
-  context '#shifts_by_date' do
+  describe '#shifts_by_date' do
     it 'sorts and separates the shifts by date' do
       shift = create :shift
       create :shift
