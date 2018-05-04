@@ -10,6 +10,11 @@ class ShiftsController < ApplicationController
     redirect_to user_timesheets_path(params[:user_id])
   end
 
+  def edit
+    @user = User.find(params[:user_id])
+    @shift = Shift.find(params[:id])
+  end
+
   def update
     @shift = Shift.find(params[:id])
     if @shift.update(shift_params)
