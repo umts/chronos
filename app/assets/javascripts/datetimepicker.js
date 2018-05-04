@@ -8,7 +8,7 @@ $( document ).on("turbolinks:load", function() {
   });
 
   $( ".datetimepicker" ).datetimepicker({
-    format: 'YYY-MM-DD h:mm A',
+    format: 'YYYY-MM-DD h:mm A',
     sideBySide: true
   });
 });
