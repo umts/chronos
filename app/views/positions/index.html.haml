@@ -15,9 +15,13 @@
       %td
         = position.union.try :name
       %td{class: 'min-width', align: 'center'}
-        = button_to position_path(position), method: :delete,
-          data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' do
-          %span.glyphicon.glyphicon-trash
-          Delete
+        = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-edit')+' Edit',
+          edit_position_path(position),
+          class: 'btn btn-xs btn-primary'
+        = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-trash')+' Delete',
+          position_path(position),
+          method: :delete,
+          data: { confirm: 'Are you sure?' },
+          class: 'btn btn-xs btn-danger'
 
 
