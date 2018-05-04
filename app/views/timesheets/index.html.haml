@@ -3,15 +3,16 @@
 = form_tag user_timesheets_path, method: 'GET', class: 'form-inline' do
   .form-group.weekpicker
     .control-label
-      = label_tag :week, 'Week of '
       = date_field_tag :date, id: 'weekpicker', class: 'form-control', value: @date
       = submit_tag 'Search', class: 'btn btn-primary'
-/ - if current_user.supervisor?
-= form_for [@user, @new_shift], html: { class: 'form-inline' } do |f|
-  .form-group
-    = f.datetime_field :start_time, class: 'form-control', placeholder: 'Start Time'
-    = f.datetime_field :end_time, class: 'form-control', placeholder: 'End Time'
-    = f.submit 'Create', class: 'btn btn-primary'
+%br
+- if @current_user.supervisor_of?(@user)
+  = form_for [@user, @new_shift], html: { class: 'form-inline' } do |f|
+    .form-group
+      = f.datetime_field :start_time, class: 'form-control', placeholder: 'Start Time'
+      = f.datetime_field :end_time, class: 'form-control', placeholder: 'End Time'
+      = f.hidden_field :user_id, value: @user.id
+      = f.submit 'Create', class: 'btn btn-primary'
 
 %br
 
@@ -27,11 +28,13 @@
       %th{style: 'text-align: center'} Total
       %th{style: 'text-align: center'} Code#1
       %th{style: 'text-align: center'} Hour#1
+      - if @current_user.supervisor_of?(@user)
+        %th{style: 'text-align: center'} Actions
     - shifts_by_date(@shifts).each do |date, shifts|
       - shifts.each do |shift|
         %tr
           - if shift == shifts.first
-            %td{rowspan: shifts.size}
+            %td{rowspan: shifts.size, style: 'vertical-align: middle'}
               = date.strftime('%A %m-%d-%Y')
           %td{style: 'text-align: center'}
             = shift.start_time.strftime('%H:%M') if shift.start_time.present?
@@ -40,13 +43,21 @@
           %td{style: 'text-align: center'}
             = @user.union.name
           %td{style: 'text-align: center'}
-            = shift.lunch if shift.lunch.nonzero?
+            = shift.lunch if shift.lunch.try(:nonzero?)
           %td{style: 'text-align: center'}
             = shift.total
           %td{style: 'text-align: center'}
           %td{style: 'text-align: center'}
-
-            
+          - if @current_user.supervisor_of?(@user)
+            %td.min-width
+              = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-edit')+' Edit',
+                        edit_user_shift_path(@user, shift),
+                        class: 'btn btn-xs btn-primary'
+              = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-trash')+' Delete',
+                        user_shift_path(@user, shift),
+                        method: :delete,
+                        data: { confirm: 'Are you sure?' },
+                        class: 'btn btn-xs btn-danger'
 - else
   = "No shifts for the week of #{@date.strftime('%A, %B %d %Y')}"
 
