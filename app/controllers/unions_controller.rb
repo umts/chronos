@@ -1,4 +1,6 @@
 class UnionsController < ApplicationController
+  before_action :get_union, only: [:edit, :update, :destroy]
+
   def index
     @unions = Union.all
   end
@@ -6,6 +8,7 @@ class UnionsController < ApplicationController
   def new
     @union = Union.new
   end
+
 
   def create
     @union = Union.new(union_params)
@@ -19,14 +22,28 @@ class UnionsController < ApplicationController
     end
   end
 
+  def update
+    if @union.update(union_params)
+      flash[:success] = 'Union Successfully Updated'
+      redirect_to unions_path
+    else
+      flash[:warning] = 'Union Could Not Be Updated'
+      redirect_to action: :edit
+    end
+  end
+
   def destroy
-    @union = Union.find(params[:id])
     @union.destroy
     flash[:success] = "Union Successfully Deleted"
     redirect_to unions_path
   end
 
   private
+
+  def get_union
+    @union = Union.find(params[:id])
+  end
+
   def union_params
     params.require(:union).permit(:name)
   end

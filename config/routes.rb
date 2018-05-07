@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :timesheet, only: [:index]
   end
-  resources :positions, only: [:index, :new, :create, :destroy]
-  resources :divisions, only: [:index, :new, :create, :destroy]
-  resources :unions, only: [:index, :new, :create, :destroy]
+  resources :positions, except: [:show]
+  resources :divisions, except: [:show]
+  resources :unions, except: [:show]
 end

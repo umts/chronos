@@ -1,4 +1,6 @@
 class DivisionsController < ApplicationController
+  before_action :get_division, only: [:edit, :update, :destroy]
+
   def index
     @divisions = Division.all
   end
@@ -19,6 +21,16 @@ class DivisionsController < ApplicationController
     end
   end
 
+  def update
+    if @division.update(division_params)
+      flash[:success] = 'Division Successfully Updated'
+      redirect_to divisions_path
+    else
+      flash[:warning] = 'Division Could Not Be Updated'
+      redirect_to action: :edit
+    end
+  end
+
   def destroy
     @division = Division.find(params[:id])
     @division.destroy
@@ -27,6 +39,11 @@ class DivisionsController < ApplicationController
   end
 
   private
+
+  def get_division
+    @division = Division.find(params[:id])
+  end
+
   def division_params
     params.require(:division).permit(:name)
   end
