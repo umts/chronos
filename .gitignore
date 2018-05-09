@@ -1,4 +1,7 @@
 
+### Congif Files ###
+config.yml
+
 ### Git ###
 *.orig
 
