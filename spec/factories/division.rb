@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :division do
-    name 'Test Division'
+    initialize_with { Division.find_or_create_by(name: 'Test Division') }
   end
 end
