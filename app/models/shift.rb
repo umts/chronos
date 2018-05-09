@@ -14,12 +14,12 @@ class Shift < ApplicationRecord
     if start_time && end_time
       time = ((end_time - start_time)/0.25.hour).round / 4.0
     end
-  end
+  end 
 
   def total
     if start_time && end_time
-      if length > CONSTANTS['lunch_start']
-        [length - CONSTANTS['lunch_duration'], CONSTANTS['lunch_start']].max
+      if length > CONFIG['lunch_start']
+        [length - CONFIG['lunch_duration'], CONFIG['lunch_start']].max
       else
         length
       end
@@ -28,8 +28,8 @@ class Shift < ApplicationRecord
 
   def lunch
     if start_time && end_time
-      if length > CONSTANTS['lunch_start']
-        [length - total, CONSTANTS['lunch_duration']].min
+      if length > CONFIG['lunch_start']
+        [length - total, CONFIG['lunch_duration']].min
       else
         0
       end
