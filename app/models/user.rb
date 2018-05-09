@@ -16,4 +16,17 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def union
+    position.union
+  end
+
+  def supervisor_of?(user)
+    subordinates = User.where(supervisor: self)
+    subordinates.include? user
+  end
+
+  def subordinate_of?(user)
+    supervisor == user
+  end
 end

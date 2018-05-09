@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   resources :home, only: [:index]
 
   resources :users do
-    resources :timesheet, only: [:index]
+    resources :timesheets, only: [:index]
+    resources :shifts, only: [:create, :edit, :update, :destroy]
   end
   resources :positions, except: [:show]
   resources :divisions, except: [:show]

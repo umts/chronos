@@ -14,6 +14,8 @@
 //= require turbolinks
 //= require jquery
 //= require bootstrap-sprockets
+//= require moment
+//= require bootstrap-datetimepicker
 //= require bootstrap-select
 //= require bootstrap/alert
 //= require bootstrap/dropdown

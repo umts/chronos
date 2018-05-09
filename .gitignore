@@ -1,4 +1,7 @@
 
+### Config Files ###
+config.yml
+
 ### Git ###
 *.orig
 
