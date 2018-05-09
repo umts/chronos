@@ -5,7 +5,7 @@ RSpec.describe TimesheetsHelper, type: :helper do
     it 'sorts and separates the shifts by date' do
       shift = create :shift
       create :shift
-      create :shift, start_time: Time.now + 1.day
+      create :shift, start_time: Time.now + 1.day, end_time: Time.now + 1.day
       shifts = shifts_by_date(Shift.all)
 
       expect(shifts[Date.today]).to include(shift)
