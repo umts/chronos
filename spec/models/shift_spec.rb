@@ -8,6 +8,7 @@ RSpec.describe Shift, type: :model do
 
     end
   end
+
   describe '#length' do
     it 'returns the duration of the shift' do
       shift = create(:shift, start_time: Time.now, end_time: Time.now+4.25.hours)
@@ -22,6 +23,7 @@ RSpec.describe Shift, type: :model do
       expect(shift.length).to eq(4.75)
     end
   end
+
   describe '#total' do
     it 'deducts lunch when duration > 6 hours' do
       shift1 = create(:shift, start_time: Time.now, end_time: Time.now+6.25.hours)
@@ -38,6 +40,7 @@ RSpec.describe Shift, type: :model do
       expect(shift2.total).to eq(6)
     end
   end
+
   describe '#lunch' do
     it 'correctly calculates lunchtime when duration > 6 hours' do
       shift1 = create(:shift, start_time: Time.now, end_time: Time.now+6.25.hours)

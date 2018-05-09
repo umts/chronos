@@ -1,4 +1,6 @@
 class ShiftsController < ApplicationController
+  before_action :get_user, only: [:edit, :update, :destroy]
+
   def create
     @shift = Shift.new(shift_params)
 
@@ -12,11 +14,9 @@ class ShiftsController < ApplicationController
 
   def edit
     @user = User.find(params[:user_id])
-    @shift = Shift.find(params[:id])
   end
 
   def update
-    @shift = Shift.find(params[:id])
     if @shift.update(shift_params)
       flash[:success] = 'Shift Successfully Updated'
     else
@@ -26,13 +26,16 @@ class ShiftsController < ApplicationController
   end
 
   def destroy
-    @shift = Shift.find(params[:id])
     @shift.destroy
     flash[:success] = 'Shift Successfully Deleted'
     redirect_to user_timesheets_path(@shift.user.id)
   end
 
   private
+
+  def get_shift
+    @shift = Shift.find(params[:id])
+  end
 
   def shift_params
     params.require(:shift).permit(:user_id,

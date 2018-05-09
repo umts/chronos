@@ -1,15 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe TimesheetHelper, type: :helper do
-
-  before(:each) do
-    Timecop.freeze
-  end
-
-  after(:each) do
-    Timecop.return
-  end
-
+RSpec.describe TimesheetsHelper, type: :helper do
   describe '#shifts_by_date' do
     it 'sorts and separates the shifts by date' do
       shift = create :shift
