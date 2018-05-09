@@ -9,3 +9,4 @@ CONFIG.reverse_merge(
   lunch_duration: 0.5
 )
 
+CONFIG.freeze
