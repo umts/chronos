@@ -30,6 +30,7 @@ class UsersController < ApplicationController
   def edit
     @divisions = Division.all
     @positions = Position.all
+    @potential_supervisors = User.all.select { |u| u.valid_supervisor_for?(@user) }
   end
 
   def update

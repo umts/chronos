@@ -46,4 +46,16 @@ class User < ApplicationRecord
   def subordinate_of?(user)
     nested_supervisors.include? user
   end
+
+  # Only a valid supervisor for another user that is not this user and that is
+  # not a supervisor of this user.
+  def valid_supervisor_for?(user)
+    if user == self
+      false
+    elsif nested_supervisors.include? user
+      false
+    else
+      true
+    end
+  end
 end
