@@ -1,0 +1,15 @@
+default: &default
+  lunch_start: 6
+  lunch_duration: 0.5
+
+development:
+  <<: *default
+
+production:
+  <<: *default
+
+staging:
+  <<: *default
+
+test:
+  <<: *default
