@@ -22,8 +22,6 @@ class RequestsController < ApplicationController
       if params[:days_of_week].nil? || params[:days_of_week].include?(date.strftime('%w'))
         @request = Request.new(request_params)
         @request.date = date
-        @request.start_time = Time.strptime(request_params[:start_time], '%I:%M %p')
-        @request.end_time = Time.strptime(request_params[:end_time], '%I:%M %p')
         @request.user = @current_user
         @request.request_status = RequestStatus.pending
 
@@ -47,8 +45,7 @@ class RequestsController < ApplicationController
 
   def update
     unless can_update_request
-      flash[:danger] = "You do not have permission to update this request or it "\
-                       "is no longer pending."
+      flash[:danger] = 'You do not have permission to update this request'
       redirect_to action: :index and return
     end
     if @request.update(request_params)

@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @potential_supervisors = User.active.select { |u| u.valid_supervisor_for?(@user) }
+    @valid_supervisors = User.active.select { |u| u.valid_supervisor_for?(@user) }
     @divisions = Division.all
     @positions = Position.all
   end

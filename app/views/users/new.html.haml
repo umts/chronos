@@ -41,7 +41,7 @@
       = f.label :supervisor_ids, 'Supervisors'
     .col-xs-5
       = f.select :supervisor_ids,
-                 User.all.collect { |s| [s.full_name, s.id] },
+                 User.active.collect { |s| [s.full_name, s.id] },
                  {},
                  multiple: true,
                  class: 'selectpicker form-control'

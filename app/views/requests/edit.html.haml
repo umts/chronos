@@ -13,6 +13,10 @@
       = button_to 'Approve',
                   update_status_request_path(@request, params: { request_status_id: RequestStatus.approved }),
                   class: 'btn btn-success btn-lg'
+    - unless @request.pending?
+      = button_to 'Unapprove',
+                  update_status_request_path(@request, params: { request_status_id: RequestStatus.pending }),
+                  class: 'btn btn-warning btn-lg'
     - unless @request.rejected?
       = button_to 'Reject',
                   update_status_request_path(@request, params: { request_status_id: RequestStatus.rejected }),
@@ -37,7 +41,7 @@
     .col-xs-5
       = f.time_field :start_time,
                      value: @request.start_time.strftime('%I:%M %p'),
-                     class: 'form-control',
+                     class: 'timepicker form-control',
                      required: true,
                      disabled: !can_update_request
   .form-group
@@ -46,7 +50,7 @@
     .col-xs-5
       = f.time_field :end_time,
                      value: @request.end_time.strftime('%I:%M %p'),
-                     class: 'form-control',
+                     class: 'timepicker form-control',
                      required: true,
                      disabled: !can_update_request
   .form-group

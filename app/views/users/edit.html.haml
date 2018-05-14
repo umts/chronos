@@ -50,7 +50,7 @@
       = f.label :supervisor_ids, 'Supervisors'
     .col-xs-5
       = f.select :supervisor_ids,
-                 options_for_select(@potential_supervisors.collect { |s| [s.full_name, s.id] },
+                 options_for_select(@valid_supervisors.collect { |s| [s.full_name, s.id] },
                                     @user.supervisors.pluck(:id)),
                  {},
                  multiple: true,
