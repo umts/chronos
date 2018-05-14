@@ -19,12 +19,12 @@ gem 'haml-rails', '~> 1.0'
 gem 'jquery-rails', '~> 4.3'
 gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
+gem 'momentjs-rails', '~> 2.17'
 gem 'simple_calendar', '~> 2.2'
 
 # css/sass
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3'
-gem 'momentjs-rails', '~> 2.9'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17'
 gem "bootstrap-select-rails", "~> 1.12"
 
