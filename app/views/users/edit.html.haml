@@ -47,12 +47,14 @@
                                selected: @user.position_id
   .form-group
     .control-label.col-xs-2
-      = f.label :supervisor_id, 'Supervisor'
+      = f.label :supervisor_ids, 'Supervisors'
     .col-xs-5
-      = f.select :supervisor_id, @supervisors.collect { |s| [s.full_name, s.id] },
-                                 { include_blank: 'None' },
-                                 class: 'selectpicker form-control',
-                                 selected: @user.supervisor_id
+      = f.select :supervisor_ids,
+                 options_for_select(User.all.collect { |s| [s.full_name, s.id] },
+                                    @user.supervisors.pluck(:id)),
+                 {},
+                 multiple: true,
+                 class: 'selectpicker form-control'
   .form-group
     .control-label.col-xs-2
       = f.label :hr_id, 'HR ID'
@@ -65,12 +67,6 @@
     .col-xs-5
       = f.text_field :swipe_id, class: 'form-control',
                                 value: @user.swipe_id
-  .form-group
-    .control-label.col-xs-2
-      = f.label :is_supervisor, 'Supervisor?'
-    .col-xs-5
-      = f.check_box :is_supervisor, class: 'form-control checkbox-inline',
-                                    checked: @user.is_supervisor
   .form-group
     .col-xs-offset-2.col-xs-5
       = f.submit 'Update', class: 'btn btn-primary'

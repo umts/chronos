@@ -40,11 +40,10 @@ class User < ApplicationRecord
   end
 
   def supervisor_of?(user)
-    subordinates = User.where(supervisor: self)
-    subordinates.include? user
+    nested_subordinates.include? user
   end
 
   def subordinate_of?(user)
-    supervisor == user
+    nested_supervisors.include? user
   end
 end

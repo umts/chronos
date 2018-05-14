@@ -11,7 +11,6 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @supervisors = User.active.where(is_supervisor: true)
     @divisions = Division.all
     @positions = Position.all
   end
@@ -29,13 +28,30 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @supervisors = User.active.where(is_supervisor: true)
     @divisions = Division.all
     @positions = Position.all
   end
 
   def update
     @user = User.find(params[:id])
+
+    # Check each supervisor for compatibility with this user
+    if user_params[:supervisor_ids].present?
+      user_params[:supervisor_ids].select(&:present?).each do |supervisor_id|
+        new_supervisor = User.find(supervisor_id)
+        # User cannot supervise themself
+        if new_supervisor == @user
+          flash[:warning] = 'Users cannot supervise themselves'
+          redirect_to action: :edit and return
+        # User cannot supervise supervisor
+        elsif @user.nested_subordinates.include? new_supervisor
+          flash[:warning] = "#{new_supervisor.full_name} cannot supervise #{@user.full_name} "\
+                            "because #{new_supervisor.full_name} is a subordinate of #{@user.full_name}"
+          redirect_to action: :edit and return
+        end
+      end
+    end
+
     if @user.update(user_params)
       flash[:success] = 'User Successfully Updated'
       redirect_to users_path
@@ -65,10 +81,9 @@ class UsersController < ApplicationController
                                  :spire_id,
                                  :division_id,
                                  :position_id,
-                                 :supervisor_id,
                                  :swipe_id,
                                  :hr_id,
-                                 :is_supervisor
+                                 :supervisor_ids => [],
                                 )
   end
 end
