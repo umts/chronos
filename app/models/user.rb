@@ -23,16 +23,16 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  # Get every user that is a subordinate or subordinate of a subordinate of
+  # Get every user that is a subordinate, or subordinate of a subordinate of
   # this user.
   def nested_subordinates
-    subordinates.map { |user| user.nested_subordinates << user }.flatten
+    subordinates.map { |user| user.nested_subordinates << user }.flatten.uniq
   end
 
-  # Get every user that is a supervisor or a supervisor of a supervisor of
+  # Get every user that is a supervisor, or a supervisor of a supervisor of
   # this user.
   def nested_supervisors
-    supervisors.map { |user| user.nested_supervisors << user }.flatten
+    supervisors.map { |user| user.nested_supervisors << user }.flatten.uniq
   end
 
   def union
