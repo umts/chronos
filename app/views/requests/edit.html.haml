@@ -2,20 +2,21 @@
 
 %h3
   - if @request.approved?
-    Request approved by
+    Approved by
     = @request.approved_by.full_name
   - elsif @request.pending?
-    Request pending approval
+    Pending approval
 
-- if can_approve_request
-  - if @request.approved?
-    = button_to 'Reject',
-                update_status_request_path(@request, params: { request_status_id: RequestStatus.rejected }),
-                class: 'btn btn-danger btn-lg'
-  - else
-    = button_to 'Approve',
-                update_status_request_path(@request, params: { request_status_id: RequestStatus.approved }),
-                class: 'btn btn-success btn-lg'
+.button-row
+  - if can_approve_request
+    - unless @request.approved?
+      = button_to 'Approve',
+                  update_status_request_path(@request, params: { request_status_id: RequestStatus.approved }),
+                  class: 'btn btn-success btn-lg'
+    - unless @request.rejected?
+      = button_to 'Reject',
+                  update_status_request_path(@request, params: { request_status_id: RequestStatus.rejected }),
+                  class: 'btn btn-danger btn-lg'
 
 = form_for @request, html: { class: 'form-horizontal' } do |f|
   .form-group
@@ -34,12 +35,20 @@
     .control-label.col-xs-2
       = f.label :start_time, 'Start Time'
     .col-xs-5
-      = f.time_field :start_time, class: 'form-control', required: true, disabled: !can_update_request
+      = f.time_field :start_time,
+                     value: @request.start_time.strftime('%I:%M %p'),
+                     class: 'form-control',
+                     required: true,
+                     disabled: !can_update_request
   .form-group
     .control-label.col-xs-2
       = f.label :end_time, 'End Time'
     .col-xs-5
-      = f.time_field :end_time, class: 'form-control', required: true, disabled: !can_update_request
+      = f.time_field :end_time,
+                     value: @request.end_time.strftime('%I:%M %p'),
+                     class: 'form-control',
+                     required: true,
+                     disabled: !can_update_request
   .form-group
     .control-label.col-xs-2
       = f.label :request_type_id, 'Type'

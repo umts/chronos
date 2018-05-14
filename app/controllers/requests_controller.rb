@@ -15,20 +15,26 @@ class RequestsController < ApplicationController
   end
 
   def create
-    @request = Request.new(request_params)
-    @request.date = Date.strptime(request_params[:date], '%Y-%m-%d')
-    @request.start_time = Time.strptime(request_params[:start_time], '%I:%M %p')
-    @request.end_time = Time.strptime(request_params[:end_time], '%I:%M %p')
-    @request.user = @current_user
-    @request.request_status = RequestStatus.pending
+    start_date = Date.strptime(params[:start_date], '%Y-%m-%d')
+    end_date = Date.strptime(params[:end_date], '%Y-%m-%d')
+    # Create a new request for every date
+    (start_date..end_date).each do |date|
+      if params[:days_of_week].nil? || params[:days_of_week].include?(date.strftime('%w'))
+        @request = Request.new(request_params)
+        @request.date = date
+        @request.start_time = Time.strptime(request_params[:start_time], '%I:%M %p')
+        @request.end_time = Time.strptime(request_params[:end_time], '%I:%M %p')
+        @request.user = @current_user
+        @request.request_status = RequestStatus.pending
 
-    if @request.save
-      flash[:success] = 'Request Successfully Created'
-      redirect_to requests_path
-    else
-      flash[:warning] = @request.errors.full_messages
-      redirect_to action: :new
+        unless @request.save
+          flash[:warning] = @request.errors.full_messages
+          redirect_to action: :new and return
+        end
+      end
     end
+    flash[:success] = 'Request Successfully Created'
+    redirect_to requests_path
   end
 
   def edit
@@ -41,19 +47,15 @@ class RequestsController < ApplicationController
 
   def update
     unless can_update_request
-      flash[:danger] = 'You do not have permission to update this request'
-      redirect_to action: :index and return
-    end
-    if @request.approved?
-      flash[:danger] = "You cannot update a request after it has been approved. "\
-                       "Please ask a supervisor to delete the request."
+      flash[:danger] = "You do not have permission to update this request or it "\
+                       "is no longer pending."
       redirect_to action: :index and return
     end
     if @request.update(request_params)
       flash[:success] = 'Request successfully updated'
       redirect_to action: :index
     else
-      flash[:warning] = 'Request could not be updated'
+      flash[:warning] = @request.errors.full_messages
       redirect_to action: :edit
     end
   end
@@ -67,7 +69,7 @@ class RequestsController < ApplicationController
       flash[:success] = 'Request successfully updated'
       redirect_to action: :index
     else
-      flash[:warning] = 'Request could not be updated'
+      flash[:warning] = @request.errors.full_messages
       redirect_to action: :edit
     end
   end

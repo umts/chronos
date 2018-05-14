@@ -4,6 +4,6 @@
   %div= date.day
   - @requests.where(date: date).each do |request|
     - unless request.rejected?
-      %div{ :class => (request.approved? ? 'approved-request' : 'pending-request') }
+      %div{ class: (request.approved? ? 'approved-request' : 'pending-request') }
         = link_to "#{request.user.full_name} (#{request.request_type.code})",
                   edit_request_path(request)

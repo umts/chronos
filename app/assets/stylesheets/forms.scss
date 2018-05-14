@@ -33,3 +33,13 @@ form.with-required:after{
   content:"* = required fields";
   color: #e32;
 }
+
+// Button row for a horizontal row of button_to
+
+.button-row form, {
+  display: inline;
+}
+
+.button-row input {
+  margin: 10px;
+}

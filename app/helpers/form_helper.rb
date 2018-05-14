@@ -1,4 +1,14 @@
 module FormHelper
+  def date_field_tag(method, options = {})
+    content_tag :div, { class: 'input-group date datepicker' } do
+      options[:placeholder] = 'YYYY-MM-DD'
+      concat text_field_tag(method, nil, options)
+      concat content_tag :span, (
+        content_tag :span, nil, { class: 'glyphicon glyphicon-calendar' }
+        ), { class: 'input-group-addon' }
+    end
+  end
+
   def date_field(object_name, method, options = {})
     content_tag :div, { class: 'input-group date datepicker' } do
       options[:placeholder] = 'YYYY-MM-DD'

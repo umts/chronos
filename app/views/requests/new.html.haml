@@ -2,9 +2,22 @@
 = form_for @request, html: { class: 'form-horizontal' } do |f|
   .form-group
     .control-label.col-xs-2
-      = f.label :date, 'Date'
+      = label_tag :start_date, 'Start Date'
     .col-xs-5
-      = f.date_field :date, class: 'datepicker form-control', required: true
+      = date_field_tag :start_date, class: 'datepicker form-control', required: true
+  .form-group
+    .control-label.col-xs-2
+      = label_tag :end_date, 'End Date'
+    .col-xs-5
+      = date_field_tag :end_date, class: 'datepicker form-control', required: true
+  .form-group
+    .control-label.col-xs-2
+      = label_tag :days_of_week, 'Days'
+    .col-xs-5
+      = select_tag :days_of_week,
+                   options_for_select(Date::DAYNAMES.map.with_index { |d, i| [d, i] }),
+                   class: 'selectpicker form-control',
+                   multiple: true
   .form-group
     .control-label.col-xs-2
       = f.label :start_time, 'Start Time'

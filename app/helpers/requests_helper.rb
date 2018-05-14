@@ -10,7 +10,7 @@ module RequestsHelper
     @request.user.nested_supervisors.include?(@current_user) && !@request.rejected?
   end
 
-  # Only the user that created the request can update it
+  # Only the user that created the request can update it, and only if it is pending
   def can_update_request
     (@current_user == @request.user) && @request.pending?
   end
