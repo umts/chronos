@@ -16,6 +16,7 @@ class User < ApplicationRecord
                         length: { is: 8 },
                         numericality: { only_integer: true }
   validates :king, uniqueness: true, if: -> { king }
+  validates_presence_of :supervisors, unless: -> { king }
 
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
