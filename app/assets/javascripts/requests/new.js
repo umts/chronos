@@ -11,7 +11,6 @@ $(document).on('turbolinks:load', function() {
 });
 
 function request_new_toggle_time_fields(checkbox_input) {
-  console.log('CHANGING SJHIT');
   var time_fields = $('#request_start_time,#request_end_time');
   if (checkbox_input.prop('checked')) {
     time_fields.prop('disabled', true);

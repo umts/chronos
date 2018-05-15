@@ -2,8 +2,12 @@
 = link_to 'Request Time Off', new_request_path, class: 'btn btn-primary'
 = month_calendar do |date|
   %div= date.day
-  - @requests.where(date: date).each do |request|
+  - @requests.where(date: date).order(start_time: :asc).each do |request|
     - unless request.rejected?
       %div{ class: (request.approved? ? 'approved-request' : 'pending-request') }
-        = link_to "#{request.user.full_name} (#{request.request_type.code})",
+        - unless request.time_by_shifts?
+          - link_name = "#{request.user.full_name} (#{request.request_type.code}, #{request.start_time.strftime('%-I:%M%P')}-#{request.end_time.strftime('%-I:%M%P')})"
+        - else
+          - link_name = "#{request.user.full_name} (#{request.request_type.code})"
+        = link_to link_name,
                   edit_request_path(request)
