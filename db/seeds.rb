@@ -18,7 +18,8 @@ if Rails.env.development?
                      email: 'boss@test.com',
                      spire_id: '00000004',
                      position: position1,
-                     division: division1)
+                     division: division1,
+                     king: true)
 
   supervisor = User.create(first_name: 'Test', last_name: 'Supervisor',
                            email: 'supervisor@test.com',

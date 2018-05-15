@@ -23,8 +23,11 @@ class RequestsController < ApplicationController
         @request = Request.new(request_params)
         @request.date = date
         @request.user = @current_user
-        @request.request_status = RequestStatus.pending
-
+        @request.request_status = if @current_user.king?
+                                    RequestStatus.approved
+                                  else
+                                    RequestStatus.pending
+                                  end
         unless @request.save
           flash[:warning] = @request.errors.full_messages
           redirect_to action: :new and return
@@ -58,12 +61,12 @@ class RequestsController < ApplicationController
   end
 
   def update_status
-    unless can_approve_request
-      flash[:danger] = 'You do not have permission to approve this request'
+    unless can_update_request_as_supervisor
+      flash[:danger] = 'You do not have permission to update the status of this request'
       redirect_to action: :index and return
     end
     if @request.update(request_status_params) && @request.update(approved_by: @current_user)
-      flash[:success] = 'Request successfully updated'
+      flash[:success] = 'Request status successfully updated'
       redirect_to action: :index
     else
       flash[:warning] = @request.errors.full_messages

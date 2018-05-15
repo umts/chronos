@@ -2,13 +2,29 @@
 
 %h3
   - if @request.approved?
-    Approved by
-    = @request.approved_by.full_name
+    - if @request.approved_by.present?
+      Approved by
+      = @request.approved_by.full_name
+    - else
+      Approved
   - elsif @request.pending?
     Pending approval
 
+%p
+  - if can_update_request_as_owner
+    You may update this request until it is approved by a supervisor.
+  - if can_update_request_as_supervisor
+    - unless @request.approved?
+      Approve this request for everyone else to see it.
+    - unless @request.pending?
+      Unapprove this request to allow this user to change it.
+    - unless @request.rejected?
+      Reject this request to remove it entirely. Rejection cannot be reversed.
+%p
+  Any change to this request will notify this user and their supervisors via email.
+
 .button-row
-  - if can_approve_request
+  - if can_update_request_as_supervisor
     - unless @request.approved?
       = button_to 'Approve',
                   update_status_request_path(@request, params: { request_status_id: RequestStatus.approved }),

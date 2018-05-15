@@ -15,6 +15,7 @@ class User < ApplicationRecord
   validates :spire_id,  uniqueness: true,
                         length: { is: 8 },
                         numericality: { only_integer: true }
+  validates :king, uniqueness: true, if: -> { king }
 
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
