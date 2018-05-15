@@ -16,6 +16,7 @@ module RequestsHelper
 
   # Current user is a supervisor and can update the request as a supervisor
   def can_update_request_as_supervisor
-    @current_user.nested_subordinates.include?(@request.user) && !@request.rejected?
+    (@current_user.nested_subordinates.include?(@request.user) && !@request.rejected?) ||
+      @current_user.king?
   end
 end

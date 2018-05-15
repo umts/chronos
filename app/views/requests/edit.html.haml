@@ -51,24 +51,25 @@
       = f.label :date, 'Date'
     .col-xs-5
       = f.date_field :date, class: 'datepicker form-control', required: true, disabled: !can_update_request
-  .form-group
-    .control-label.col-xs-2
-      = f.label :start_time, 'Start Time'
-    .col-xs-5
-      = f.time_field :start_time,
-                     value: @request.start_time.strftime('%I:%M %p'),
-                     class: 'timepicker form-control',
-                     required: true,
-                     disabled: !can_update_request
-  .form-group
-    .control-label.col-xs-2
-      = f.label :end_time, 'End Time'
-    .col-xs-5
-      = f.time_field :end_time,
-                     value: @request.end_time.strftime('%I:%M %p'),
-                     class: 'timepicker form-control',
-                     required: true,
-                     disabled: !can_update_request
+  - unless @request.time_by_shifts?
+    .form-group
+      .control-label.col-xs-2
+        = f.label :start_time, 'Start Time'
+      .col-xs-5
+        = f.time_field :start_time,
+                       value: @request.start_time.strftime('%I:%M %p'),
+                       class: 'timepicker form-control',
+                       required: true,
+                       disabled: !can_update_request
+    .form-group
+      .control-label.col-xs-2
+        = f.label :end_time, 'End Time'
+      .col-xs-5
+        = f.time_field :end_time,
+                       value: @request.end_time.strftime('%I:%M %p'),
+                       class: 'timepicker form-control',
+                       required: true,
+                       disabled: !can_update_request
   .form-group
     .control-label.col-xs-2
       = f.label :request_type_id, 'Type'

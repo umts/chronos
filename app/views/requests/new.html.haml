@@ -20,14 +20,19 @@
                    multiple: true
   .form-group
     .control-label.col-xs-2
+      = f.label :time_by_shifts, 'Time Off By Shifts?'
+    .col-xs-5
+      = f.check_box :time_by_shifts, class: 'form-control checkbox-inline'
+  .form-group
+    .control-label.col-xs-2
       = f.label :start_time, 'Start Time'
     .col-xs-5
-      = f.time_field :start_time, class: 'timepicker form-control', required: true
+      = f.time_field :start_time, class: 'timepicker form-control'
   .form-group
     .control-label.col-xs-2
       = f.label :end_time, 'End Time'
     .col-xs-5
-      = f.time_field :end_time, class: 'timepicker form-control', required: true
+      = f.time_field :end_time, class: 'timepicker form-control'
   .form-group
     .control-label.col-xs-2
       = f.label :request_type_id, 'Type'

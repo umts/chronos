@@ -82,6 +82,7 @@ class RequestsController < ApplicationController
 
   def request_params
     params.require(:request).permit(:date,
+                                    :time_by_shifts,
                                     :start_time,
                                     :end_time,
                                     :request_type_id)

@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
         session[:user_id] = user.id
         user
       elsif Rails.env.development?
-        User.first
+        User.second
       end
   end
 end

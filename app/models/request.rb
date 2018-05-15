@@ -9,12 +9,24 @@ class Request < ApplicationRecord
   scope :pending, -> { joins(:request_status).where('request_statuses.description = ?', 'pending') }
   scope :rejected, -> { joins(:request_status).where('request_statuses.description = ?', 'rejected') }
 
-  validates :user, :start_time, :end_time, :request_type, presence: true
+  validates :user, :request_type, presence: true
 
   validate :verify_times
 
+  validate :verify_times_or_shifts
+
   def verify_times
-    errors.add(:end_time, ' cannot be before start time') if end_time < start_time
+    unless time_by_shifts?
+      errors.add(:end_time, ' cannot be before start time') if end_time < start_time
+    end
+  end
+
+  def verify_times_or_shifts
+    if time_by_shifts?
+      errors.add('Start time and end time cannot be present for time by shifts') if start_time.present? || end_time.present?
+    else
+      errors.add('Start time and end time must be present') if start_time.nil? || end_time.nil?
+    end
   end
 
   def approved?
