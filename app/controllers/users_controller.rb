@@ -61,10 +61,14 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    unless @user.nested_subordinates.count.zero?
+      flash[:warning] = "#{@user.full_name} still has has subordinates that need a new "\
+                        "supervisor before deleting"
+      redirect_to users_path and return
+    end
     @user.update_attribute(:active, false)
     flash[:success] = 'User Successfully Deleted'
     redirect_to users_path
-    # TODO: if a user is a supervisor we should remove them as supervisor from their supervisees
   end
 
   private
