@@ -80,8 +80,8 @@ class UsersController < ApplicationController
                                  :spire_id,
                                  :division_id,
                                  :position_id,
+                                 :supervisor_id,
                                  :swipe_id,
-                                 :hr_id,
-                                 :supervisor_id)
+                                 :hr_id)
   end
 end

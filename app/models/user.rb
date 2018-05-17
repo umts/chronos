@@ -24,7 +24,7 @@ class User < ApplicationRecord
   def nested_subordinates
     subordinates.map do |subordinate|
       subordinate.nested_subordinates << subordinate
-    end.flatten.uniq
+    end.flatten
   end
 
   # Get every user that is a supervisor, or a supervisor of a supervisor of
