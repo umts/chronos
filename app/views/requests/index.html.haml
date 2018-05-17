@@ -1,6 +1,6 @@
 %h1 Time Off Requests
 = link_to 'Request Time Off', new_request_path, class: 'btn btn-primary'
-= month_calendar do |date|
+= month_calendar partial: 'month_calendar' do |date|
   %div= date.day
   - @requests.where(date: date).order(start_time: :asc).each do |request|
     - unless request.rejected?
