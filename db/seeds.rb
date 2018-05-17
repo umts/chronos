@@ -25,22 +25,22 @@ if Rails.env.development?
                            email: 'supervisor@test.com',
                            spire_id: '00000001',
                            position: position1,
-                           division: division1)
+                           division: division1,
+                           supervisor: boss)
+
   user1 = User.create(first_name: 'Test', last_name: 'User 1',
                       email: 'user1@test.com',
                       spire_id: '00000002',
                       position: position1,
-                      division: division2)
+                      division: division2,
+                      supervisor: supervisor)
+
   user2 = User.create(first_name: 'Test', last_name: 'User 2',
                       email: 'user2@test.com',
                       spire_id: '00000003',
                       position: position2,
-                      division: division1)
-
-  user1.supervisors << supervisor
-  user2.supervisors << supervisor
-  supervisor.supervisors << boss
-
+                      division: division1,
+                      supervisor: supervisor)
 
   # generate shifts for the last 4 weeks
   [boss, supervisor, user1, user2].each do |user|

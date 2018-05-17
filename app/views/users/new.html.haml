@@ -38,12 +38,12 @@
                                class: 'selectpicker form-control'
   .form-group
     .control-label.col-xs-2
-      = f.label :supervisor_ids, 'Supervisors'
+      = f.label :supervisor_id, 'Supervisor'
     .col-xs-5
-      = f.select :supervisor_ids,
+      = f.select :supervisor_id,
                  User.active.collect { |s| [s.full_name, s.id] },
-                 {},
-                 multiple: true,
+                 { include_blank: true },
+                 required: true,
                  class: 'selectpicker form-control'
   .form-group
     .control-label.col-xs-2

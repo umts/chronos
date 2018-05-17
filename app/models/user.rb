@@ -1,14 +1,8 @@
 class User < ApplicationRecord
   belongs_to :position, optional: true
   belongs_to :division, optional: true
-  has_and_belongs_to_many :supervisors, foreign_key: :supervisor_id,
-                                        association_foreign_key: :subordinate_id,
-                                        class_name: 'User',
-                                        join_table: :subordinates_supervisors
-  has_and_belongs_to_many :subordinates, foreign_key: :subordinate_id,
-                                         association_foreign_key: :supervisor_id,
-                                         class_name: 'User',
-                                         join_table: :subordinates_supervisors
+  belongs_to :supervisor, foreign_key: :supervisor_id, class_name: 'User', optional: true
+  has_many :subordinates, foreign_key: :supervisor_id, class_name: 'User'
   has_many :shifts, dependent: :destroy
 
   validates :first_name, :last_name, :email, :spire_id, presence: true
@@ -16,7 +10,7 @@ class User < ApplicationRecord
                         length: { is: 8 },
                         numericality: { only_integer: true }
   validates :king, uniqueness: true, if: -> { king }
-  validates_presence_of :supervisors, unless: -> { king }
+  validates :supervisor, presence: true, unless: -> { king }
 
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
@@ -28,13 +22,15 @@ class User < ApplicationRecord
   # Get every user that is a subordinate, or subordinate of a subordinate of
   # this user.
   def nested_subordinates
-    subordinates.map { |user| user.nested_subordinates << user }.flatten.uniq
+    subordinates.map do |subordinate|
+      subordinate.nested_subordinates << subordinate
+    end.flatten.uniq
   end
 
   # Get every user that is a supervisor, or a supervisor of a supervisor of
-  # this user.
+  # this user. If user is king return empty array.
   def nested_supervisors
-    supervisors.map { |user| user.nested_supervisors << user }.flatten.uniq
+    king ? [] : supervisor.nested_supervisors << supervisor
   end
 
   def union

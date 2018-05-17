@@ -47,13 +47,12 @@
                                selected: @user.position_id
   .form-group
     .control-label.col-xs-2
-      = f.label :supervisor_ids, 'Supervisors'
+      = f.label :supervisor_id, 'Supervisor'
     .col-xs-5
-      = f.select :supervisor_ids,
-                 options_for_select(@valid_supervisors.collect { |s| [s.full_name, s.id] },
-                                    @user.supervisors.pluck(:id)),
-                 {},
-                 multiple: true,
+      = f.select :supervisor_id,
+                 @valid_supervisors.collect { |s| [s.full_name, s.id] },
+                 { include_blank: true },
+                 required: !@user.king,
                  class: 'selectpicker form-control'
   .form-group
     .control-label.col-xs-2

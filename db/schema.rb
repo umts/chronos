@@ -57,11 +57,6 @@ ActiveRecord::Schema.define(version: 20180515133602) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "subordinates_supervisors", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "subordinate_id", null: false
-    t.bigint "supervisor_id", null: false
-  end
-
   create_table "timetypes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text "description"
     t.datetime "created_at", null: false
@@ -80,6 +75,7 @@ ActiveRecord::Schema.define(version: 20180515133602) do
     t.string "email"
     t.integer "division_id"
     t.integer "position_id"
+    t.integer "supervisor_id"
     t.integer "swipe_id"
     t.integer "hr_id"
     t.string "spire_id"
