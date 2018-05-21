@@ -1,0 +1,87 @@
+%h1 Time Off Request
+
+%h3
+  - if @request.approved?
+    - if @request.approved_by.present?
+      Approved by
+      = @request.approved_by.full_name
+    - else
+      Approved
+  - elsif @request.pending?
+    Pending approval
+
+%p
+  - if can_update_request_as_owner
+    You may update this request until it is approved by a supervisor.
+  - if can_update_request_as_supervisor
+    - unless @request.approved?
+      Approve this request for everyone else to see it.
+    - unless @request.pending?
+      Unapprove this request to allow this user to change it.
+    - unless @request.rejected?
+      Reject this request to remove it entirely. Rejection cannot be reversed.
+%p
+  Any change to this request will notify this user and their supervisors via email.
+
+.button-row
+  - if can_update_request_as_supervisor
+    - unless @request.approved?
+      = button_to 'Approve',
+                  update_status_request_path(@request, params: { request_status_id: RequestStatus.approved }),
+                  class: 'btn btn-success btn-lg'
+    - unless @request.pending?
+      = button_to 'Unapprove',
+                  update_status_request_path(@request, params: { request_status_id: RequestStatus.pending }),
+                  class: 'btn btn-warning btn-lg'
+    - unless @request.rejected?
+      = button_to 'Reject',
+                  update_status_request_path(@request, params: { request_status_id: RequestStatus.rejected }),
+                  class: 'btn btn-danger btn-lg'
+
+= form_for @request, html: { class: 'form-horizontal' } do |f|
+  .form-group
+    .control-label.col-xs-2
+      = f.label :name, 'Name'
+    .col-xs-5
+      = text_field_tag :name, @request.user.first_name + ' ' + @request.user.last_name,
+                              class: 'form-control',
+                              disabled: true
+  .form-group
+    .control-label.col-xs-2
+      = f.label :date, 'Date'
+    .col-xs-5
+      = f.date_field :date, class: 'datepicker form-control', required: true, disabled: !can_update_request
+  - unless @request.time_by_shifts?
+    .form-group
+      .control-label.col-xs-2
+        = f.label :start_time, 'Start Time'
+      .col-xs-5
+        = f.time_field :start_time,
+                       value: @request.start_time.strftime('%I:%M %p'),
+                       class: 'timepicker form-control',
+                       required: true,
+                       disabled: !can_update_request
+    .form-group
+      .control-label.col-xs-2
+        = f.label :end_time, 'End Time'
+      .col-xs-5
+        = f.time_field :end_time,
+                       value: @request.end_time.strftime('%I:%M %p'),
+                       class: 'timepicker form-control',
+                       required: true,
+                       disabled: !can_update_request
+  .form-group
+    .control-label.col-xs-2
+      = f.label :request_type_id, 'Type'
+    .col-xs-5
+      = f.select :request_type_id,
+                 @request_types.collect { |rt| ["#{rt.description} (#{rt.code})", rt.id] },
+                 { include_blank: 'None' },
+                 class: 'selectpicker form-control',
+                 required: true,
+                 disabled: !can_update_request
+
+  .form-group
+    .col-xs-offset-2.col-xs-5
+      = f.submit('Update', class: 'btn btn-primary') if can_update_request
+      = link_to 'Cancel', requests_path, class: 'btn btn-default'

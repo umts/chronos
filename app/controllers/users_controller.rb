@@ -11,7 +11,6 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    @supervisors = User.active.where(is_supervisor: true)
     @divisions = Division.all
     @positions = Position.all
   end
@@ -29,13 +28,29 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @supervisors = User.active.where(is_supervisor: true)
+    @valid_supervisors = User.active.select { |u| u.valid_supervisor_for?(@user) }
     @divisions = Division.all
     @positions = Position.all
   end
 
   def update
     @user = User.find(params[:id])
+
+    # Check supervisor for compatibility with this user
+    if user_params[:supervisor_id].present?
+      new_supervisor = User.find(user_params[:supervisor_id])
+      # User cannot supervise themself
+      if new_supervisor == @user
+        flash[:warning] = 'Users cannot supervise themselves'
+        redirect_to action: :edit and return
+      # User cannot supervise supervisor
+      elsif @user.nested_subordinates.include? new_supervisor
+        flash[:warning] = "#{new_supervisor.full_name} cannot supervise #{@user.full_name} "\
+                          "because #{new_supervisor.full_name} is a subordinate of #{@user.full_name}"
+        redirect_to action: :edit and return
+      end
+    end
+
     if @user.update(user_params)
       flash[:success] = 'User Successfully Updated'
       redirect_to users_path
@@ -46,10 +61,14 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    unless @user.nested_subordinates.count.zero?
+      flash[:warning] = "#{@user.full_name} still has has subordinates that need a new "\
+                        "supervisor before deleting"
+      redirect_to users_path and return
+    end
     @user.update_attribute(:active, false)
     flash[:success] = 'User Successfully Deleted'
     redirect_to users_path
-    # TODO: if a user is a supervisor we should remove them as supervisor from their supervisees
   end
 
   private
@@ -67,8 +86,6 @@ class UsersController < ApplicationController
                                  :position_id,
                                  :supervisor_id,
                                  :swipe_id,
-                                 :hr_id,
-                                 :is_supervisor
-                                )
+                                 :hr_id)
   end
 end

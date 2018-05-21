@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180327213139) do
+ActiveRecord::Schema.define(version: 20180515133602) do
 
   create_table "divisions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -23,6 +23,30 @@ ActiveRecord::Schema.define(version: 20180327213139) do
     t.integer "union_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "request_statuses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "description"
+  end
+
+  create_table "request_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "code"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "requests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "user_id"
+    t.date "date"
+    t.time "start_time"
+    t.time "end_time"
+    t.integer "request_type_id"
+    t.integer "request_status_id"
+    t.integer "approved_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "time_by_shifts"
   end
 
   create_table "shifts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -57,8 +81,8 @@ ActiveRecord::Schema.define(version: 20180327213139) do
     t.string "spire_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_supervisor"
     t.boolean "active", default: true
+    t.boolean "king", default: false
   end
 
   create_table "versions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|

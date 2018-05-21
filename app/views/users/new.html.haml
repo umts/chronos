@@ -40,9 +40,11 @@
     .control-label.col-xs-2
       = f.label :supervisor_id, 'Supervisor'
     .col-xs-5
-      = f.select :supervisor_id, @supervisors.collect { |s| [s.full_name, s.id] },
-                                 { include_blank: 'None' },
-                                 class: 'selectpicker form-control'
+      = f.select :supervisor_id,
+                 User.active.collect { |s| [s.full_name, s.id] },
+                 { include_blank: true },
+                 required: true,
+                 class: 'selectpicker form-control'
   .form-group
     .control-label.col-xs-2
       = f.label :hr_id, 'HR ID'
@@ -53,11 +55,6 @@
       = f.label :swipe_id, 'Swipe ID'
     .col-xs-5
       = f.text_field :swipe_id, class: 'form-control'
-  .form-group
-    .control-label.col-xs-2
-      = f.label :is_supervisor, 'Supervisor?'
-    .col-xs-5
-      = f.check_box :is_supervisor, class: 'checkbox-inline'
   .form-group
     .col-xs-offset-2.col-xs-5
       = f.submit 'Create', class: 'btn btn-primary'
