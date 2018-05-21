@@ -65,6 +65,6 @@ class HomeController < ApplicationController
   end
 
   def time_off
-    redirect_to home_index_path
+    redirect_to requests_path
   end
 end

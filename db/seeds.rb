@@ -16,28 +16,32 @@ if Rails.env.development?
 
   boss = User.create(first_name: 'Test', last_name: 'Boss',
                      email: 'boss@test.com',
-                     spire_id: '00000004',
+                     spire_id: '00000001',
+                     swipe_id: 111,
                      position: position1,
                      division: division1,
                      king: true)
 
   supervisor = User.create(first_name: 'Test', last_name: 'Supervisor',
                            email: 'supervisor@test.com',
-                           spire_id: '00000001',
+                           spire_id: '00000002',
+                           swipe_id: 112,
                            position: position1,
                            division: division1,
                            supervisor: boss)
 
   user1 = User.create(first_name: 'Test', last_name: 'User 1',
                       email: 'user1@test.com',
-                      spire_id: '00000002',
+                      spire_id: '00000003',
+                      swipe_id: 113,
                       position: position1,
                       division: division2,
                       supervisor: supervisor)
 
   user2 = User.create(first_name: 'Test', last_name: 'User 2',
                       email: 'user2@test.com',
-                      spire_id: '00000003',
+                      spire_id: '00000004',
+                      swipe_id: 114,
                       position: position2,
                       division: division1,
                       supervisor: supervisor)
