@@ -1,3 +1,4 @@
+= link_to 'Home', home_index_path, class: 'btn btn-default btn-xlg', style: 'float: right'
 %h1
   = "Timesheet for #{@user.full_name}"
 = form_tag user_timesheets_path, method: 'GET', class: 'form-inline' do
@@ -18,7 +19,7 @@
 
 - unless @shifts.empty?
 
-  %table.table.table-striped.table-bordered.table-hover
+  %table.table.table-bordered
     %tr
       %th Date
       %th{style: 'text-align: center'} Start
@@ -60,4 +61,3 @@
                         class: 'btn btn-xs btn-danger'
 - else
   = "No shifts for the week of #{@date.strftime('%A, %B %d %Y')}"
-

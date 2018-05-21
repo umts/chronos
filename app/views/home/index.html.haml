@@ -1,1 +1,12 @@
 %h1 Welcome to Kronos!
+
+%table#home_buttons_table
+  %tr
+    %td
+      = link_to 'Swipe In', home_swipe_path(redirect: 'swipe_in'), class: 'btn btn-default btn-xlg'
+    %td
+      = link_to 'Swipe Out', home_swipe_path(redirect: 'swipe_out'), class: 'btn btn-default btn-xlg'
+    %td
+      = link_to 'Time Sheet', home_swipe_path(redirect: 'time_sheet'), class: 'btn btn-default btn-xlg'
+    %td
+      = link_to 'Time Off', home_swipe_path(redirect: 'time_off'), class: 'btn btn-default btn-xlg'

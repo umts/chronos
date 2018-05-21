@@ -2,6 +2,11 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :home, only: [:index]
+  get 'home/swipe', to: 'home#swipe'
+  post 'home/swipe_in', to: 'home#swipe_in'
+  post 'home/swipe_out', to: 'home#swipe_out'
+  post 'home/time_sheet', to: 'home#time_sheet'
+  post 'home/time_off', to: 'home#time_off'
 
   resources :users do
     resources :timesheets, only: [:index]

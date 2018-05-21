@@ -1,5 +1,5 @@
 class ShiftsController < ApplicationController
-  before_action :get_user, only: [:edit, :update, :destroy]
+  before_action :get_shift, only: [:edit, :update, :destroy]
 
   def create
     @shift = Shift.new(shift_params)

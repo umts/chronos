@@ -1,0 +1,16 @@
+= link_to 'Home', home_index_path, class: 'btn btn-default btn-xlg', style: 'float: right'
+%h1{ class: 'swipe-clock' }
+  - if params[:redirect] == 'swipe_in'
+    Swipe In
+  - elsif params[:redirect] == 'swipe_out'
+    Swipe Out
+  - elsif params[:redirect] == 'time_sheet'
+    Swipe to view time sheet
+  - elsif params[:redirect] == 'time_off'
+    Swipe to request time off
+
+%h2{ id: 'home-swipe-clock-date', class: 'swipe-clock' }
+%h3{ id: 'home-swipe-clock-time', class: 'swipe-clock' }
+
+= form_tag @form_path, class: 'swipe-clock' do
+  = password_field_tag :swipe_id, nil, autofocus: true

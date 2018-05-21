@@ -10,7 +10,10 @@ class ApplicationController < ActionController::Base
 
   def set_current_user
     @current_user =
-      if session.key? :swipe_id # swipe in at timeclock
+      if params.key?(:swipe_id) && User.active.find_by(swipe_id: params[:swipe_id]).present? # swipe id submitted
+        session[:swipe_id] = params[:swipe_id]
+        User.active.find_by(swipe_id: params[:swipe_id])
+      elsif session.key? :swipe_id # swipe in at timeclock
         User.active.find_by(swipe_id: session[:swipe_id])
       elsif session.key? :user_id
         User.active.find_by(id: session[:user_id])
