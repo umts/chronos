@@ -1,0 +1,48 @@
+%h1 New Time Off Request
+= form_for @request, html: { class: 'form-horizontal' } do |f|
+  .form-group
+    .control-label.col-xs-2
+      = label_tag :start_date, 'Start Date'
+    .col-xs-5
+      = date_field_tag :start_date, class: 'datepicker form-control', required: true
+  .form-group
+    .control-label.col-xs-2
+      = label_tag :end_date, 'End Date'
+    .col-xs-5
+      = date_field_tag :end_date, class: 'datepicker form-control', required: true
+  .form-group
+    .control-label.col-xs-2
+      = label_tag :days_of_week, 'Days'
+    .col-xs-5
+      = select_tag :days_of_week,
+                   options_for_select(Date::DAYNAMES.map.with_index { |d, i| [d, i] }),
+                   class: 'selectpicker form-control',
+                   multiple: true
+  .form-group
+    .control-label.col-xs-2
+      = f.label :time_by_shifts, 'Time Off By Shifts?'
+    .col-xs-5
+      = f.check_box :time_by_shifts, class: 'form-control checkbox-inline'
+  .form-group
+    .control-label.col-xs-2
+      = f.label :start_time, 'Start Time'
+    .col-xs-5
+      = f.time_field :start_time, class: 'timepicker form-control'
+  .form-group
+    .control-label.col-xs-2
+      = f.label :end_time, 'End Time'
+    .col-xs-5
+      = f.time_field :end_time, class: 'timepicker form-control'
+  .form-group
+    .control-label.col-xs-2
+      = f.label :request_type_id, 'Type'
+    .col-xs-5
+      = f.select :request_type_id,
+                 @request_types.collect { |rt| ["#{rt.description} (#{rt.code})", rt.id] },
+                 { include_blank: 'None' },
+                 class: 'selectpicker form-control',
+                 required: true
+  .form-group
+    .col-xs-offset-2.col-xs-5
+      = f.submit 'Create', class: 'btn btn-primary'
+      = link_to 'Cancel', requests_path, class: 'btn btn-default'

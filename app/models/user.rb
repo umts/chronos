@@ -9,6 +9,8 @@ class User < ApplicationRecord
   validates :spire_id,  uniqueness: true,
                         length: { is: 8 },
                         numericality: { only_integer: true }
+  validates :king, uniqueness: true, if: -> { king }
+  validates :supervisor, presence: true, unless: -> { king }
 
   scope :active, -> { where(active: true) }
   scope :inactive, -> { where(active: false) }
@@ -17,16 +19,41 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  # Get every user that is a subordinate, or subordinate of a subordinate of
+  # this user.
+  def nested_subordinates
+    subordinates.map do |subordinate|
+      subordinate.nested_subordinates << subordinate
+    end.flatten
+  end
+
+  # Get every user that is a supervisor, or a supervisor of a supervisor of
+  # this user. If user is king return empty array.
+  def nested_supervisors
+    king ? [] : supervisor.nested_supervisors << supervisor
+  end
+
   def union
     position.union
   end
 
   def supervisor_of?(user)
-    subordinates = User.where(supervisor: self)
-    subordinates.include? user
+    nested_subordinates.include? user
   end
 
   def subordinate_of?(user)
-    supervisor == user
+    nested_supervisors.include? user
+  end
+
+  # Only a valid supervisor for another user that is not this user and that is
+  # not a supervisor of this user.
+  def valid_supervisor_for?(user)
+    if user == self
+      false
+    elsif nested_supervisors.include? user
+      false
+    else
+      true
+    end
   end
 end
