@@ -1,10 +1,30 @@
 .btn-xlg {
-    padding: 18px 28px;
-    font-size: 24px;
-    line-height: normal;
-    width: 180px;
-    border: 3px solid;
-    -webkit-border-radius: 16px;
-       -moz-border-radius: 16px;
-            border-radius: 16px;
+  padding: 18px 28px;
+  font-size: 32px;
+  line-height: normal;
+  width: 220px;
+  border: 3px solid;
+  -webkit-border-radius: 16px;
+     -moz-border-radius: 16px;
+          border-radius: 16px;
+}
+
+.form-control {
+  height: 42px;
+  font-size: 16px;
+}
+
+form label {
+  font-size: 16px;
+}
+
+// Glyphicon size
+.input-group-addon {
+  font-size: 16px;
+}
+
+.table-condensed, .bootstrap-datetimepicker-widget {
+  width: 500px;
+  max-width: 500px;
+  height: 500px;
 }
