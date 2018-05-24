@@ -10,8 +10,9 @@
     Swipe to request time off
 
 %h2{ id: 'home-swipe-clock-date', class: 'swipe-clock' }
-%h3{ id: 'home-swipe-clock-time', class: 'swipe-clock' }
+%h2{ id: 'home-swipe-clock-time', class: 'swipe-clock' }
 
 = form_tag @form_path, class: 'swipe-clock' do
+  = hidden_field_tag :redirect, params[:redirect]
   .col-xs-offset-4.col-xs-4
     = password_field_tag :swipe_id, nil, autofocus: true, class: 'form-control'

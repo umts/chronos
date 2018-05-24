@@ -61,10 +61,14 @@ class HomeController < ApplicationController
   end
 
   def time_sheet
+    if @current_user.nil?
+      flash[:warning] = 'Invalid id. Try swiping again or contact IT.'
+      render :swipe and return
+    end
     redirect_to user_timesheets_path(@current_user, date: Date.today)
   end
 
   def time_off
-    redirect_to requests_path
+    redirect_to new_request_path
   end
 end

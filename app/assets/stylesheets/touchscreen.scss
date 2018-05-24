@@ -1,0 +1,52 @@
+.btn-xlg {
+  padding: 24px 28px;
+  font-size: 32px;
+  line-height: normal;
+  width: 220px;
+  border: 3px solid;
+  -webkit-border-radius: 16px;
+     -moz-border-radius: 16px;
+          border-radius: 16px;
+}
+
+.btn-md {
+  font-size: 16px;
+  padding: 10px 16px;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+}
+
+// Form fields
+// Drop down select pickers
+.form-control, .btn.dropdown-toggle {
+  height: 42px;
+  font-size: 16px;
+}
+.dropdown-menu.inner li a {
+  font-size: 16px;
+}
+
+// Form labels
+form label {
+  font-size: 16px;
+}
+
+// Glyphicon
+.input-group-addon {
+  font-size: 16px;
+}
+
+// Datetimepicker
+.bootstrap-datetimepicker-widget.dropdown-menu {
+  width: 450px;
+}
+.bootstrap-datetimepicker-widget table tr {
+  height: 48px;
+}
+.bootstrap-datetimepicker-widget table td {
+  font-size: 16px;
+}
+.bootstrap-datetimepicker-widget table th {
+  font-size: 16px;
+}

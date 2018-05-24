@@ -21,8 +21,8 @@ class ApplicationController < ActionController::Base
         user = User.active.find_by(spire_id: request.env['fcIdNumber'])
         session[:user_id] = user.id
         user
-      elsif Rails.env.development?
-        User.first
+      #elsif Rails.env.development?
+      #  User.first
       end
   end
 end

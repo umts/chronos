@@ -1,6 +1,6 @@
 = link_to 'Home', home_index_path, class: 'btn btn-default btn-xlg', style: 'float: right'
 %h1 Time Off Requests
-= link_to 'Request Time Off', new_request_path, class: 'btn btn-primary btn-lg'
+= link_to 'Request Time Off', new_request_path, class: 'btn btn-primary btn-md'
 = month_calendar partial: 'month_calendar' do |date|
   %div= date.day
   - @requests.where(date: date).order(start_time: :asc).each do |request|

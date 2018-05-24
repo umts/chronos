@@ -1,3 +1,4 @@
+= link_to 'Home', home_index_path, class: 'btn btn-default btn-xlg', style: 'float: right'
 %h1 New Time Off Request
 = form_for @request, html: { class: 'form-horizontal' } do |f|
   .form-group
@@ -44,5 +45,5 @@
                  required: true
   .form-group
     .col-xs-offset-2.col-xs-5
-      = f.submit 'Create', class: 'btn btn-primary btn-lg'
-      = link_to 'Cancel', requests_path, class: 'btn btn-default btn-lg'
+      = f.submit 'Create', class: 'btn btn-primary btn-md'
+      = link_to 'Cancel', requests_path, class: 'btn btn-default btn-md'
