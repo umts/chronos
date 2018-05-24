@@ -1,7 +1,7 @@
 %h1 Unions
 
 %h2
-  = link_to 'New Union', new_union_path, class: 'btn btn-primary'
+  = link_to 'New Union', new_union_path, class: 'btn btn-primary btn-md'
 
 %table.table.table-striped.table-bordered.table-hover
   %tr
@@ -14,9 +14,9 @@
       %td.min-width.pull
         = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-edit')+' Edit',
           edit_union_path(union),
-          class: 'btn btn-xs btn-primary'
+          class: 'btn btn-primary'
         = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-trash')+' Delete',
           union_path(union),
           method: :delete,
           data: { confirm: 'Are you sure? Deleting this Union will also delete all Positions that belong to it.' },
-          class: 'btn btn-xs btn-danger'
+          class: 'btn btn-danger'

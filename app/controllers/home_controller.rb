@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  before_action :check_invalid_swipe, only: %i[swipe_in swipe_out time_sheet time_off]
+
   def index
     session.delete(:swipe_id)
   end
@@ -23,13 +25,7 @@ class HomeController < ApplicationController
       start_time: Time.now
     }
 
-    new_shift = Shift.new(shift_params)
-    if new_shift.save
-      flash[:success] = 'Shift successfully created'
-    else
-      flash[:warning] = new_shift.errors.full_messages
-    end
-    redirect_to user_timesheets_path(@current_user)
+    create_shift(shift_params)
   end
 
   def swipe_out
@@ -42,33 +38,46 @@ class HomeController < ApplicationController
     last_shift = today_shifts.select { |s| s[:end_time].nil? }.last
     # Last shift exists, add an end time
     if last_shift.present?
-      if last_shift.update(shift_params)
-        flash[:success] = 'Shift successfully updated'
-      else
-        flash[:warning] = 'Shift could not be updated'
-      end
-      redirect_to user_timesheets_path(@current_user)
+      update_shift(last_shift, shift_params)
     # Last shift does not exist, create a new shift with just an end time
     else
-      new_shift = Shift.new(shift_params)
-      if new_shift.save
-        flash[:success] = 'Shift successfully created'
-      else
-        flash[:warning] = new_shift.errors.full_messages
-      end
-      redirect_to user_timesheets_path(@current_user)
+      create_shift(shift_params)
     end
   end
 
   def time_sheet
-    if @current_user.nil?
-      flash[:warning] = 'Invalid id. Try swiping again or contact IT.'
-      render :swipe and return
-    end
     redirect_to user_timesheets_path(@current_user, date: Date.today)
   end
 
   def time_off
     redirect_to new_request_path
+  end
+
+  private
+
+  def check_invalid_swipe
+    if @current_user.nil?
+      flash.now[:warning] = 'Invalid id. Try swiping again or contact IT.'
+      render :swipe and return
+    end
+  end
+
+  def create_shift(shift_params)
+    shift = Shift.new(shift_params)
+    if shift.save
+      flash[:success] = 'Shift successfully created'
+    else
+      flash[:warning] = shift.errors.full_messages
+    end
+    redirect_to user_timesheets_path(@current_user)
+  end
+
+  def update_shift(shift, shift_params)
+    if shift.update(shift_params)
+      flash[:success] = 'Shift successfully updated'
+    else
+      flash[:warning] = shift.errors.full_messages
+    end
+    redirect_to user_timesheets_path(@current_user)
   end
 end

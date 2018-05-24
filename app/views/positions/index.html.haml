@@ -1,7 +1,7 @@
 %h1 Positions
 
 %h2
-  = link_to 'New Position', new_position_path, class: 'btn btn-primary'
+  = link_to 'New Position', new_position_path, class: 'btn btn-primary btn-md'
 
 %table.table.table-striped.table-bordered.table-hover
   %tr
@@ -17,11 +17,11 @@
       %td{class: 'min-width', align: 'center'}
         = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-edit')+' Edit',
           edit_position_path(position),
-          class: 'btn btn-xs btn-primary'
+          class: 'btn btn-primary'
         = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-trash')+' Delete',
           position_path(position),
           method: :delete,
           data: { confirm: 'Are you sure?' },
-          class: 'btn btn-xs btn-danger'
+          class: 'btn btn-danger'
 
 

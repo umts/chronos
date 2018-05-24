@@ -28,5 +28,7 @@
     .container.main-content
       %h1
         = yield :page_header
+      - unless params[:controller] == 'home' && params[:action] == 'index'
+        = link_to 'Home', home_index_path, class: 'btn btn-default btn-xlg', style: 'float: right'
       = yield
     = render partial: 'layouts/shared/footer'

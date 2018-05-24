@@ -42,6 +42,9 @@ group :development do
   # debugging
   gem 'binding_of_caller', '~> 0.8.0'
   gem 'better_errors', '~> 2.4'
+
+  # style
+  gem 'rubocop'
 end
 
 group :test do

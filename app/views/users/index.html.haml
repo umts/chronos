@@ -1,7 +1,7 @@
 %h1 Users
 
 %h2
-  = link_to 'New User', new_user_path, class: 'btn btn-primary'
+  = link_to 'New User', new_user_path, class: 'btn btn-primary btn-md'
 
 %table.table.table-striped.table-bordered.table-hover
   %tr
@@ -26,14 +26,14 @@
       %td.min-width
         = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-time')+' Time Sheet',
                   user_timesheets_path(user),
-                  class: 'btn btn-xs btn-success'
+                  class: 'btn btn-success'
         = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-edit')+' Edit',
                   edit_user_path(user),
-                  class: 'btn btn-xs btn-primary'
+                  class: 'btn btn-primary'
         = link_to content_tag(:span, nil, class: 'glyphicon glyphicon-trash')+' Delete',
                   user_path(user),
                   method: :delete,
                   data: { confirm: 'Are you sure?' },
-                  class: 'btn btn-xs btn-danger'
+                  class: 'btn btn-danger'
 
 
