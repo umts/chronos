@@ -22,20 +22,21 @@
 // Drop down select pickers
 .form-control, .btn.dropdown-toggle {
   height: 42px;
-  font-size: 16px;
+  font-size: 18px;
 }
 .dropdown-menu.inner li a {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 // Form labels
 form label {
-  font-size: 16px;
+  font-size: 18px;
 }
 
-// Glyphicon
+// Glyphicon (for datetimepickers)
 .input-group-addon {
-  font-size: 16px;
+  font-size: 18px;
+  padding: 6px 20px;
 }
 
 // Datetimepicker
@@ -46,8 +47,8 @@ form label {
   height: 48px;
 }
 .bootstrap-datetimepicker-widget table td {
-  font-size: 16px;
+  font-size: 20px;
 }
 .bootstrap-datetimepicker-widget table th {
-  font-size: 16px;
+  font-size: 20px;
 }

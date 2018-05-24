@@ -28,6 +28,8 @@
     .container.main-content
       %h1
         = yield :page_header
+      - if session[:swipe_id].present?
+        %div{id: 'logged-in-through-swipe-id'}
       - unless params[:controller] == 'home' && params[:action] == 'index'
         = link_to 'Home', home_index_path, class: 'btn btn-default btn-xlg', style: 'float: right'
       = yield

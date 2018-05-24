@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
-  before_action :check_invalid_swipe, only: %i[swipe_in swipe_out time_sheet time_off]
+  before_action :check_invalid_swipe, only: %i[swipe_in swipe_out
+                                               time_sheet time_off]
 
   def index
     session.delete(:swipe_id)

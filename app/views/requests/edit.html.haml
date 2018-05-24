@@ -23,20 +23,20 @@
 %p
   Any change to this request will notify this user and their supervisors via email.
 
-.button-row
+.form-group.button-row
   - if can_update_request_as_supervisor
     - unless @request.approved?
       = button_to 'Approve',
                   update_status_request_path(@request, params: { request_status_id: RequestStatus.approved }),
-                  class: 'btn btn-success btn-lg'
+                  class: 'btn btn-success btn-md'
     - unless @request.pending?
       = button_to 'Unapprove',
                   update_status_request_path(@request, params: { request_status_id: RequestStatus.pending }),
-                  class: 'btn btn-warning btn-lg'
+                  class: 'btn btn-warning btn-md'
     - unless @request.rejected?
       = button_to 'Reject',
                   update_status_request_path(@request, params: { request_status_id: RequestStatus.rejected }),
-                  class: 'btn btn-danger btn-lg'
+                  class: 'btn btn-danger btn-md'
 
 = form_for @request, html: { class: 'form-horizontal' } do |f|
   .form-group
