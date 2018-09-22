@@ -1,1 +1,1 @@
-# chronos
+This was originally designed as a standalone time clock management system. Development here was halted when it was decided that this would work better directly integrated into the parking services internal website. This is being left up for historical reasons, but isn't even close to feature complete and is a few hundred commits behind what the actual final product ended up looking like.
